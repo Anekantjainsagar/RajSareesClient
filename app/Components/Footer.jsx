@@ -40,7 +40,7 @@ const Footer = () => {
           </p>
         </div>
         {data?.map((e, i) => {
-          return <Block data={e} key={e?.name} />;
+          return <Block data={e} key={i} />;
         })}
       </div>
       <div className="h-[1px] bg-[#B0A4A4] my-5 opacity-60"></div>
@@ -60,9 +60,10 @@ const Block = ({ data }) => {
       <h1 className={`${salsa.className} pb-3 text-3xl text-brown`}>
         {data?.name}
       </h1>
-      {data?.routes?.map((e) => {
+      {data?.routes?.map((e, i) => {
         return (
           <p
+            key={i}
             className={`text-grey cursor-pointer border-b border-b-transparent hover:border-b-grey transition-all mb-2 w-fit ${sansation.className} text-lg`}
           >
             {e?.name}
