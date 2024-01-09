@@ -8,6 +8,7 @@
 
 ::-webkit-scrollbar-track {
   border-radius: 10px;
+  background-color: #FFEAEE;
 }
 
 ::-webkit-scrollbar-thumb {

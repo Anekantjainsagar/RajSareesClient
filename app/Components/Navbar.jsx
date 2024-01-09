@@ -7,7 +7,7 @@ import { FaHeart, FaShoppingCart, FaUser } from "react-icons/fa";
 const Navbar = () => {
   return (
     <>
-      <div className="bg-orange shadow-md shadow-gray-300 fixed top-0 left-0 w-full">
+      <div className="bg-orange shadow-md shadow-gray-300 fixed top-0 left-0 z-50 w-full">
         <div className="flex items-center py-0.5 px-7 justify-between">
           <Image alt="Logo" src={logo} className="w-[5vw]" />
           <div className="flex items-center">
@@ -17,7 +17,7 @@ const Navbar = () => {
             <FaShoppingCart size={30} className="mr-5" />
           </div>
         </div>
-        <div className="h-[1px] bg-gray-200 mx-4"></div>
+        <div className="h-[1px] bg-gray-300 mx-4"></div>
         <div className="flex items-center justify-between py-2 px-[7vw] text-lg">
           {[
             "New Arrivals",

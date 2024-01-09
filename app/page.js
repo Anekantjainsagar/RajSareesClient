@@ -3,15 +3,17 @@ import React from "react";
 import hero from "@/app/Assets/hero.png";
 import { sansation } from "./Utils/font";
 import Featured from "./Components/Main/Featured";
+import Categories from "./Components/Main/Categories";
+import FOllowus from "./Components/Main/FollowUs";
 
 const App = () => {
   return (
-    <div className="bg-orange px-[3vw]">
+    <div className="bg-orange px-[4vw] pb-10">
       <div
         className={`flex items-center justify-between py-10 ${sansation.className}`}
       >
         <div>
-          <p className="text-6xl">
+          <p className="text-6xl text-grey">
             Find Your Perfect
             <br />
             <span className="text-brown">Blend</span> of Our <br />
@@ -29,6 +31,8 @@ const App = () => {
         />
       </div>
       <Featured />
+      <Categories />
+      <FOllowus />
     </div>
   );
 };
