@@ -1,5 +1,7 @@
-import React from "react";
+"use client";
+import React, { useContext } from "react";
 import { salsa, sansation } from "../Utils/font";
+import Context from "../Context/Context";
 
 const Footer = () => {
   const data = [
@@ -26,7 +28,7 @@ const Footer = () => {
   ];
 
   return (
-    <div className="px-[3vw] bg-orange pb-7">
+    <div className="px-[3vw] bg-orange pb-4 md:pb-7">
       <div className="bg-gradient-to-r from-[#e9ab2600] via-newYellow to-[#e9ab2600] h-[2px] w-full mb-6"></div>
       <div className="flex md:flex-row flex-col items-center md:items-start justify-between">
         <div className="w-[80vw] md:w-[17vw] flex flex-col items-center md:items-start">
@@ -45,7 +47,7 @@ const Footer = () => {
           return <Block data={e} key={i} />;
         })}
       </div>
-      <div className="h-[1px] bg-[#B0A4A4] my-5 opacity-60"></div>
+      <div className="h-[1px] bg-[#B0A4A4] my-3 md:my-5 opacity-60"></div>
       <div
         className={`flex items-center justify-between text-grey ${sansation.className} md:text-lg`}
       >
@@ -57,6 +59,8 @@ const Footer = () => {
 };
 
 const Block = ({ data }) => {
+  const { setLoginModalOpen } = useContext(Context);
+
   return (
     <div className="md:w-[17vw] flex flex-col md:mt-0 mt-5 items-center md:items-start">
       <h1 className={`${salsa.className} pb-2 md:pb-3 text-3xl text-brown`}>
@@ -66,6 +70,11 @@ const Block = ({ data }) => {
         return (
           <p
             key={i}
+            onClick={(el) => {
+              if (e?.name == "Login") {
+                setLoginModalOpen(true);
+              }
+            }}
             className={`text-grey cursor-pointer border-b border-b-transparent hover:border-b-grey transition-all mb-1 md:mb-2 w-fit ${sansation.className} text-lg`}
           >
             {e?.name}

@@ -1,24 +1,48 @@
-import React from "react";
+"use client";
+import React, { useContext } from "react";
 import logo from "@/app/Assets/logo.png";
 import Image from "next/image";
 import { CiSearch } from "react-icons/ci";
 import { FaHeart, FaShoppingCart, FaUser } from "react-icons/fa";
+import Context from "../Context/Context";
+import { getCookie } from "cookies-next";
+import { useRouter } from "next/navigation";
 
 const Navbar = () => {
+  const history = useRouter();
+  const { loginModalOpen, setLoginModalOpen, login } = useContext(Context);
+
   return (
     <>
-      <div className="bg-orange shadow-md shadow-gray-300 fixed top-0 left-0 z-50 w-[100vw] md:w-full">
+      <div className="bg-orange text-grey shadow-md shadow-gray-300 fixed top-0 left-0 z-50 w-[100vw] md:w-full">
         <div className="flex items-center py-1 md:py-0.5 px-3 md:px-7 justify-between">
-          <Image alt="Logo" src={logo} className="w-[13vw] md:w-[5vw]" />
+          <Image
+            alt="Logo"
+            src={logo}
+            className="w-[13vw] md:w-[5vw]"
+            onClick={(e) => {
+              history.push("/");
+            }}
+          />
           <div className="flex items-center">
-            <CiSearch className="mr-5 text-xl md:text-3xl cursor-pointer" />
-            <FaUser className="mr-5 text-xl md:text-3xl cursor-pointer" />
-            <FaHeart className="mr-5 text-xl md:text-3xl cursor-pointer" />
-            <FaShoppingCart className="mr-5 text-xl md:text-3xl cursor-pointer" />
+            <CiSearch className="ml-5 text-xl md:text-3xl cursor-pointer" />
+            <FaUser
+              onClick={(e) => {
+                console.log(login);
+                if (!login?._id) {
+                  setLoginModalOpen(!loginModalOpen);
+                } else {
+                  history.push("/dashboard");
+                }
+              }}
+              className="ml-5 text-xl md:text-3xl cursor-pointer"
+            />
+            <FaHeart className="ml-5 text-xl md:text-3xl cursor-pointer" />
+            <FaShoppingCart className="ml-5 text-xl md:text-3xl cursor-pointer" />
           </div>
         </div>
         <div className="h-[1px] bg-gray-300 mx-4"></div>
-        <div className="flex items-center justify-between py-2 px-[7vw] md:text-lg">
+        <div className="flex items-center justify-between py-2 px-4 md:px-[7vw] md:text-lg">
           {[
             "New Arrivals",
             "Ethinic Wear",

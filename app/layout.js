@@ -3,6 +3,8 @@ import "./globals.css";
 import Head from "next/head";
 import Navbar from "./Components/Navbar";
 import Footer from "./Components/Footer";
+import State from "./Context/State";
+import Login from "./Components/Login/Login";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -14,34 +16,37 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <Head>
-        <link
-          rel="apple-touch-icon"
-          sizes="180x180"
-          href="/apple-touch-icon.png"
-        />
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="32x32"
-          href="/favicon-32x32.png"
-        />
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="16x16"
-          href="/favicon-16x16.png"
-        />
-        <link rel="manifest" href="/site.webmanifest" />{" "}
-        <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
-        <meta name="msapplication-TileColor" content="#da532c" />{" "}
-        <meta name="theme-color" content="#ffffff" />
-      </Head>
-      <body className={inter.className}>
-        <Navbar />
-        {children}
-        <Footer />
-      </body>
+      <State>
+        <Head>
+          <link
+            rel="apple-touch-icon"
+            sizes="180x180"
+            href="/apple-touch-icon.png"
+          />
+          <link
+            rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="/favicon-32x32.png"
+          />
+          <link
+            rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="/favicon-16x16.png"
+          />
+          <link rel="manifest" href="/site.webmanifest" />{" "}
+          <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
+          <meta name="msapplication-TileColor" content="#da532c" />{" "}
+          <meta name="theme-color" content="#ffffff" />
+        </Head>
+        <body className={inter.className}>
+          <Login />
+          <Navbar />
+          {children}
+          <Footer />
+        </body>
+      </State>
     </html>
   );
 }

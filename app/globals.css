@@ -2,45 +2,34 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Scroller css */
 ::-webkit-scrollbar {
   width: 10px;
 }
-
 ::-webkit-scrollbar-track {
   border-radius: 10px;
   background-color: #ffeaee;
 }
-
 ::-webkit-scrollbar-thumb {
   border-radius: 10px;
   background: #882437;
 }
 
-.swiper-button-prev,
-.swiper-button-next {
-  /* opacity: 0; */
-}
-
-/* Add these styles to your existing CSS */
-
-/* Pagination dots */
-/* Add these styles to your existing CSS */
-
-/* Pagination dots */
+/* Swiper Js */
 .swiper-pagination-bullet {
   background-color: #882437 !important;
 }
-
-/* Navigation arrows */
 .swiper-button-prev,
 .swiper-button-next {
   color: #882437 !important;
 }
 
-.swiper-button-prev {
-  padding-left: -50px;
+/* Number Arrow Hide csss */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
-
-.swiper-button-next {
-  padding-right: -50px;
+input[type="number"] {
+  -moz-appearance: textfield;
 }
