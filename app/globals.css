@@ -8,10 +8,39 @@
 
 ::-webkit-scrollbar-track {
   border-radius: 10px;
-  background-color: #FFEAEE;
+  background-color: #ffeaee;
 }
 
 ::-webkit-scrollbar-thumb {
   border-radius: 10px;
   background: #882437;
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+  /* opacity: 0; */
+}
+
+/* Add these styles to your existing CSS */
+
+/* Pagination dots */
+/* Add these styles to your existing CSS */
+
+/* Pagination dots */
+.swiper-pagination-bullet {
+  background-color: #882437 !important;
+}
+
+/* Navigation arrows */
+.swiper-button-prev,
+.swiper-button-next {
+  color: #882437 !important;
+}
+
+.swiper-button-prev {
+  padding-left: -50px;
+}
+
+.swiper-button-next {
+  padding-right: -50px;
 }

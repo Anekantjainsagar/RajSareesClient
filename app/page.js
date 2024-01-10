@@ -10,10 +10,10 @@ const App = () => {
   return (
     <div className="bg-orange px-[4vw] pb-10">
       <div
-        className={`flex items-center justify-between py-10 ${sansation.className}`}
+        className={`flex items-start md:items-center md:flex-row flex-col-reverse justify-between py-10 ${sansation.className}`}
       >
         <div>
-          <p className="text-6xl text-grey">
+          <p className="text-4xl md:mt-0 mt-4 md:text-6xl text-grey">
             Find Your Perfect
             <br />
             <span className="text-brown">Blend</span> of Our <br />
@@ -27,7 +27,7 @@ const App = () => {
         <Image
           src={hero}
           alt="Hero image"
-          className="w-[50vw] h-[70vh] object-cover object-center rounded-xl"
+          className="md:w-[50vw] h-[30vh] md:h-[70vh] object-cover object-center rounded-xl"
         />
       </div>
       <Featured />
