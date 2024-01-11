@@ -7,10 +7,17 @@ import { FaHeart, FaShoppingCart, FaUser } from "react-icons/fa";
 import Context from "../Context/Context";
 import { getCookie } from "cookies-next";
 import { useRouter } from "next/navigation";
+import Search from "./Search";
 
 const Navbar = () => {
   const history = useRouter();
-  const { loginModalOpen, setLoginModalOpen, login } = useContext(Context);
+  const {
+    loginModalOpen,
+    setLoginModalOpen,
+    login,
+    showSearchBar,
+    setShowSearchBar,
+  } = useContext(Context);
 
   return (
     <>
@@ -25,8 +32,15 @@ const Navbar = () => {
             }}
           />
           <div className="flex items-center">
-            <CiSearch className="ml-5 text-xl md:text-3xl cursor-pointer" />
-
+            <div className="relative">
+              <CiSearch
+                onClick={(e) => {
+                  setShowSearchBar(!showSearchBar);
+                }}
+                className="ml-5 text-2xl md:text-3xl cursor-pointer"
+              />
+              <Search />
+            </div>
             <FaHeart className="ml-5 text-xl md:text-3xl cursor-pointer" />
             <FaShoppingCart className="ml-5 text-xl md:text-3xl cursor-pointer" />
             {login?._id ? (
