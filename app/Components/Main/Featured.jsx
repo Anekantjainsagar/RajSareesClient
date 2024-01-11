@@ -34,11 +34,11 @@ const Featured = () => {
         >
           Featured Products <FaArrowRight className="ml-2 md:ml-3 pt-1.5" />
         </div>
-        <div className="flex items-center md:text-lg">
+        <div className="flex items-center md:text-lg cursor-pointer">
           View All <FaArrowRight className="ml-1 md:ml-2 pt-0.5 md:text-xl" />
         </div>
       </div>
-      <div className="mt-4 hidden md:grid gap-x-6 grid-cols-4 pt-3">
+      <div className="mt-4 px-6 hidden md:grid gap-x-6 grid-cols-4 pt-3">
         {[img2, img3, img4, img1].map((e, i) => {
           return <Block key={i} data={e} />;
         })}

@@ -11,14 +11,18 @@ const State = (props) => {
   const [login, setLogin] = useState();
 
   const getUser = () => {
-    axios
-      .post(`${URL}/user/get-user`, { token: getCookie("token") })
-      .then((res) => {
-        setLogin(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    if (getCookie("token")) {
+      axios
+        .post(`${URL}/user/get-user`, { token: getCookie("token") })
+        .then((res) => {
+          setLogin(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      setLogin({});
+    }
   };
 
   useEffect(() => {

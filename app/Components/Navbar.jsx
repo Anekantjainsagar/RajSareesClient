@@ -19,26 +19,43 @@ const Navbar = () => {
           <Image
             alt="Logo"
             src={logo}
-            className="w-[13vw] md:w-[5vw]"
+            className="w-[13vw] md:w-[5vw] cursor-pointer"
             onClick={(e) => {
               history.push("/");
             }}
           />
           <div className="flex items-center">
             <CiSearch className="ml-5 text-xl md:text-3xl cursor-pointer" />
-            <FaUser
-              onClick={(e) => {
-                console.log(login);
-                if (!login?._id) {
-                  setLoginModalOpen(!loginModalOpen);
-                } else {
-                  history.push("/dashboard");
-                }
-              }}
-              className="ml-5 text-xl md:text-3xl cursor-pointer"
-            />
+
             <FaHeart className="ml-5 text-xl md:text-3xl cursor-pointer" />
             <FaShoppingCart className="ml-5 text-xl md:text-3xl cursor-pointer" />
+            {login?._id ? (
+              <Image
+                src={login?.image}
+                onClick={(e) => {
+                  if (!login?._id) {
+                    setLoginModalOpen(!loginModalOpen);
+                  } else {
+                    history.push("/dashboard");
+                  }
+                }}
+                width={100}
+                height={100}
+                className="md:w-[2.6vw] w-[5.5vw] border border-brown md:h-[2.6vw] h-[5.5vw] ml-5 rounded-full object-cover object-center cursor-pointer"
+                alt="User Profile"
+              />
+            ) : (
+              <FaUser
+                onClick={(e) => {
+                  if (!login?._id) {
+                    setLoginModalOpen(!loginModalOpen);
+                  } else {
+                    history.push("/dashboard");
+                  }
+                }}
+                className="ml-5 text-xl md:text-3xl cursor-pointer"
+              />
+            )}
           </div>
         </div>
         <div className="h-[1px] bg-gray-300 mx-4"></div>

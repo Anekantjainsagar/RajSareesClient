@@ -40,7 +40,7 @@ const Categories = () => {
         </div>
       </div>
       <div
-        className={`hidden md:grid grid-cols-4 gap-x-8 gap-y-8 mt-4 px-5 pt-3 ${sansation.className}`}
+        className={`hidden md:grid grid-cols-4 gap-x-8 gap-y-8 mt-4 px-10 pt-3 ${sansation.className}`}
       >
         {[
           { image: img8, title: "Sarees" },
