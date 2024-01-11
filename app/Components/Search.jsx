@@ -120,7 +120,7 @@ const Search = () => {
               })}
             </div>
           </div>
-          <div className="md:hidden mt-2 bg-white rounded-md py-2">
+          {/* <div className="md:hidden mt-2 bg-white rounded-md py-2">
             <Swiper
               slidesPerView={1}
               modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
@@ -146,7 +146,7 @@ const Search = () => {
                 </SwiperSlide>
               ))}
             </Swiper>
-          </div>
+          </div> */}
         </div>
       </Modal>
     </div>

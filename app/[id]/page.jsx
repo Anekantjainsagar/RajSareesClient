@@ -36,13 +36,27 @@ const Product = () => {
     <div
       className={`bg-orange py-8 px-[4vw] md:px-[8vw] ${sansation.className}`}
     >
-      <div className="flex md:flex-row flex-col">
-        <Image
-          src={img}
-          alt="Image"
-          className="md:w-[22vw] rounded-xl md:rounded-md"
-        />
-        <div className="md:ml-5 mt-2 text-grey md:px-0 px-2 w-full">
+      <div className="flex md:flex-row md:justify-between flex-col">
+        <div className="flex md:flex-row flex-col-reverse md:w-4/12 md:ml-3">
+          <div className="md:w-3/12 mr-4 md:px-0 px-2 flex flex-row md:h-fit h-[18vw] md:my-0 my-3 w-full md:flex-col">
+            <Image
+              src={img}
+              alt="Image"
+              className="md:w-full w-[13vw] md:mr-0 mr-3 h-full object-cover object-top border border-brown cursor-pointer md:mb-4 rounded-md"
+            />
+            <Image
+              src={img}
+              alt="Image"
+              className="md:w-full w-[13vw] md:mr-0 mr-3 h-full object-cover object-top cursor-pointer opacity-70 rounded-md"
+            />
+          </div>
+          <Image
+            src={img}
+            alt="Image"
+            className="md:w-9/12 w-full rounded-xl md:rounded-md"
+          />
+        </div>
+        <div className="md:ml-5 mt-2 text-grey md:px-0 px-2 md:w-8/12">
           <div className="flex w-full justify-between items-start">
             <div>
               <p className="text-2xl font-semibold">
@@ -59,7 +73,7 @@ const Product = () => {
             </div>
           </div>
           <p className="font-semibold mt-3 text-2xl">Product Details</p>
-          <p>
+          <p className="w-10/12">
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla
             labore ratione cupiditate quos magnam illum qui iste adipisci illo
             explicabo, eaque itaque provident in quo nam nihil accusantium eos

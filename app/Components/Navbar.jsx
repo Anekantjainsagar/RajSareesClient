@@ -73,7 +73,7 @@ const Navbar = () => {
             )}
           </div>
         </div>
-        <div className="bg-gradient-to-r from-[#e9ab2600] via-newYellow to-[#e9ab2600] h-[1px] my-3 w-full"></div>
+        <div className="bg-gradient-to-r from-[#e9ab2600] via-newYellow to-[#e9ab2600] h-[1px] my-2 w-full"></div>
         <div
           className={`${sansation.className} flex items-center justify-between py-2 px-4 md:px-[7vw] md:text-lg`}
         >
