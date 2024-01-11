@@ -8,6 +8,7 @@ import Context from "../Context/Context";
 import { getCookie } from "cookies-next";
 import { useRouter } from "next/navigation";
 import Search from "./Search";
+import { sansation } from "../Utils/font";
 
 const Navbar = () => {
   const history = useRouter();
@@ -21,7 +22,7 @@ const Navbar = () => {
 
   return (
     <>
-      <div className="bg-orange text-grey shadow-md shadow-gray-300 fixed top-0 left-0 z-50 w-[100vw] md:w-full">
+      <div className="bg-orange text-grey fixed top-0 left-0 z-50 w-[100vw] md:w-full">
         <div className="flex items-center py-1 md:py-0.5 px-3 md:px-7 justify-between">
           <Image
             alt="Logo"
@@ -72,8 +73,10 @@ const Navbar = () => {
             )}
           </div>
         </div>
-        <div className="h-[1px] bg-gray-300 mx-4"></div>
-        <div className="flex items-center justify-between py-2 px-4 md:px-[7vw] md:text-lg">
+        <div className="bg-gradient-to-r from-[#e9ab2600] via-newYellow to-[#e9ab2600] h-[1px] my-3 w-full"></div>
+        <div
+          className={`${sansation.className} flex items-center justify-between py-2 px-4 md:px-[7vw] md:text-lg`}
+        >
           {[
             "New Arrivals",
             "Ethinic Wear",
@@ -82,14 +85,14 @@ const Navbar = () => {
             "Wedding Sarees",
           ].map((e) => {
             return (
-              <p key={e} className="text-center">
+              <p key={e} className="text-center md:text-lg hover:border-b border-b-grey text-sm cursor-pointer">
                 {e}
               </p>
             );
           })}
         </div>
       </div>
-      <div className="py-[13.5vw] md:py-[4.2vw]"></div>
+      <div className="py-[14vw] md:py-[4.2vw]"></div>
     </>
   );
 };

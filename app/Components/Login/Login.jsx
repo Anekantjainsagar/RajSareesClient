@@ -1,10 +1,7 @@
 "use client";
 import Context from "@/app/Context/Context";
-import { useRouter } from "next/navigation";
 import React, { useContext, useEffect, useState } from "react";
 import Modal from "react-modal";
-import logo from "@/app/Assets/logo.png";
-import Image from "next/image";
 import gsap, { Power2 } from "gsap";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import toast, { Toaster } from "react-hot-toast";

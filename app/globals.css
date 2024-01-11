@@ -8,11 +8,11 @@
 }
 ::-webkit-scrollbar-track {
   border-radius: 10px;
-  background-color: #ffeaee;
+  background-color: #fff;
 }
 ::-webkit-scrollbar-thumb {
   border-radius: 10px;
-  background: #882437;
+  background: #413F3F;
 }
 
 /* Swiper Js */

@@ -80,19 +80,12 @@ const Dashboard = () => {
   return (
     <div className="bg-orange py-10 px-[4vw]">
       <Toaster />
-      <div className="flex items-center justify-between">
-        <p className={`text-2xl ${salsa.className} text-brown font-semibold`}>
+      <div className="flex w-11/12 md:mt-5 mt-5 md:w-5/12 mx-auto items-center flex-col justify-center">
+        <p
+          className={`text-2xl text-center w-full mb-5 ${salsa.className} text-brown font-semibold`}
+        >
           Account Details
         </p>
-        <button
-          onClick={onLogout}
-          className="bg-brown flex items-center text-white px-5 py-1.5 font-semibold rounded-md"
-        >
-          <CiLogout className="font-bold mr-3" />
-          Logout
-        </button>
-      </div>
-      <div className="flex w-11/12 md:mt-0 mt-5 md:w-5/12 mx-auto items-center flex-col justify-center">
         <div className="w-[50vw] md:w-[8vw] relative">
           <Image
             src={data?.image}
@@ -137,28 +130,28 @@ const Dashboard = () => {
           onchange={(e) => {
             setData({ ...data, name: e.target.value });
           }}
-          placeholder={"Enter you Name *"}
+          placeholder={"Enter your Name *"}
         />
         <Input
           value={data?.email}
           onchange={(e) => {
             setData({ ...data, email: e.target.value });
           }}
-          placeholder={"Enter you Email *"}
+          placeholder={"Enter your Email *"}
         />
         <Input
           value={data?.phone}
           onchange={(e) => {
             setData({ ...data, phone: e.target.value });
           }}
-          placeholder={"Enter you Phone *"}
+          placeholder={"Enter your Phone *"}
         />
         <Input
           value={data?.gender}
           onchange={(e) => {
             setData({ ...data, gender: e.target.value });
           }}
-          placeholder={"Enter you Gender"}
+          placeholder={"Enter your Gender"}
         />
         <Input
           value={data?.address}
@@ -172,27 +165,34 @@ const Dashboard = () => {
           onchange={(e) => {
             setData({ ...data, city: e.target.value });
           }}
-          placeholder={"Enter you City"}
+          placeholder={"Enter your City"}
         />
         <Input
           value={data?.state}
           onchange={(e) => {
             setData({ ...data, state: e.target.value });
           }}
-          placeholder={"Enter you State"}
+          placeholder={"Enter your State"}
         />
         <Input
           value={data?.pincode}
           onchange={(e) => {
             setData({ ...data, pincode: e.target.value });
           }}
-          placeholder={"Enter you Pin Code"}
+          placeholder={"Enter your Pin Code"}
         />
         <button
           onClick={updateProfile}
           className="bg-brown text-white mt-5 w-full py-1.5 font-semibold rounded-md"
         >
           Save Details
+        </button>
+        <button
+          onClick={onLogout}
+          className="text-brown w-full text-center mt-2 border border-brown flex items-center justify-center py-1.5 font-semibold rounded-md"
+        >
+          <CiLogout className="font-bold mr-3" />
+          Logout
         </button>
       </div>
     </div>

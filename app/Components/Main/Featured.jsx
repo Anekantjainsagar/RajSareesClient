@@ -24,6 +24,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
+import { useRouter } from "next/navigation";
 
 const Featured = () => {
   return (
@@ -68,8 +69,14 @@ const Featured = () => {
 };
 
 const Block = ({ data }) => {
+  const history = useRouter();
   return (
-    <div className="flex text-grey flex-col items-center pb-10 md:py-2 cursor-pointer hover:scale-105 transition-all hover:shadow-lg shadow-brown rounded-lg">
+    <div
+      onClick={(e) => {
+        history.push("/1");
+      }}
+      className="flex text-grey flex-col items-center pb-10 md:py-2 cursor-pointer hover:scale-105 transition-all hover:shadow-lg shadow-brown rounded-lg"
+    >
       <Image src={data} alt="Img" className="w-9/12" />
       <h1 className="text-xl font-medium mt-2">Navvali Sarees</h1>
       <p>

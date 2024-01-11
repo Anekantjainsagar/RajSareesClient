@@ -8,7 +8,7 @@ import { getCookie } from "cookies-next";
 const State = (props) => {
   // Login States
   const [loginModalOpen, setLoginModalOpen] = useState(false);
-  const [showLogin, setShowLogin] = useState(false);
+  const [showLogin, setShowLogin] = useState(true);
   const [login, setLogin] = useState();
 
   // Main SearchBar
