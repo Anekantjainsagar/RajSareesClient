@@ -59,7 +59,8 @@ const Products = () => {
       <div className="md:w-10/12 md:ml-4">
         <div className="flex items-start md:items-center justify-between mb-4 -mt-1">
           <h1 className="md:text-xl text-gray-500">
-            Search Results for <span className="text-grey">"Sarees"</span>
+            Search Results for{" "}
+            <span className="text-grey">&quot;Sarees&quot;</span>
           </h1>
           <div className="flex items-center">
             <select className="text-gray-700 outline-none px-3 py-1.5 rounded-md border">
@@ -135,7 +136,10 @@ const CheckboxBlock = () => {
         id="checkbox"
         className="h-5 md:h-4 w-5 md:w-4 rounded-md border-none bg-brown"
       />
-      <label htmlFor="checkbox" className="cursor-pointer md:text-base text-lg ml-2 text-gray-600">
+      <label
+        htmlFor="checkbox"
+        className="cursor-pointer md:text-base text-lg ml-2 text-gray-600"
+      >
         Sarees
       </label>
     </div>
