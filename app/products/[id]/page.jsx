@@ -73,7 +73,7 @@ const Product = () => {
             </div>
           </div>
           <p className="font-semibold mt-3 text-2xl">Product Details</p>
-          <p className="w-10/12">
+          <p className="md:w-10/12">
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla
             labore ratione cupiditate quos magnam illum qui iste adipisci illo
             explicabo, eaque itaque provident in quo nam nihil accusantium eos

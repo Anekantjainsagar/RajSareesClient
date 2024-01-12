@@ -27,6 +27,8 @@ import "swiper/css/scrollbar";
 import { useRouter } from "next/navigation";
 
 const Featured = () => {
+  const history = useRouter();
+
   return (
     <div>
       <div className="flex items-center justify-between text-grey">
@@ -35,7 +37,12 @@ const Featured = () => {
         >
           Featured Products <FaArrowRight className="ml-2 md:ml-3 pt-1.5" />
         </div>
-        <div className="flex items-center md:text-lg cursor-pointer">
+        <div
+          onClick={(e) => {
+            history.push("/products");
+          }}
+          className="flex items-center md:text-lg cursor-pointer"
+        >
           View All <FaArrowRight className="ml-1 md:ml-2 pt-0.5 md:text-xl" />
         </div>
       </div>
@@ -73,7 +80,7 @@ const Block = ({ data }) => {
   return (
     <div
       onClick={(e) => {
-        history.push("/1");
+        history.push("products/1");
       }}
       className="flex text-grey flex-col items-center pb-10 md:py-2 cursor-pointer hover:scale-105 transition-all hover:shadow-lg shadow-brown rounded-lg"
     >
