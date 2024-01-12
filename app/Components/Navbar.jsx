@@ -5,7 +5,6 @@ import Image from "next/image";
 import { CiSearch } from "react-icons/ci";
 import { FaHeart, FaShoppingCart, FaUser } from "react-icons/fa";
 import Context from "../Context/Context";
-import { getCookie } from "cookies-next";
 import { useRouter } from "next/navigation";
 import Search from "./Search";
 import { sansation } from "../Utils/font";
@@ -43,7 +42,12 @@ const Navbar = () => {
               <Search />
             </div>
             <FaHeart className="ml-5 text-xl md:text-3xl cursor-pointer" />
-            <FaShoppingCart className="ml-5 text-xl md:text-3xl cursor-pointer" />
+            <FaShoppingCart
+              onClick={(e) => {
+                history.push("/cart");
+              }}
+              className="ml-5 text-xl md:text-3xl cursor-pointer"
+            />
             {login?._id ? (
               <Image
                 src={login?.image}
@@ -85,7 +89,10 @@ const Navbar = () => {
             "Wedding Sarees",
           ].map((e) => {
             return (
-              <p key={e} className="text-center md:text-lg hover:border-b border-b-grey text-sm cursor-pointer">
+              <p
+                key={e}
+                className="text-center md:text-lg hover:border-b border-b-grey text-sm cursor-pointer"
+              >
                 {e}
               </p>
             );
