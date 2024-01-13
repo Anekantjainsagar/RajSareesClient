@@ -7,7 +7,7 @@ import { FaHeart, FaShoppingCart, FaUser } from "react-icons/fa";
 import Context from "../Context/Context";
 import { useRouter } from "next/navigation";
 import Search from "./Search";
-import { sansation } from "../Utils/font";
+import { sansation } from "@/app/Utils/font";
 
 const Navbar = () => {
   const history = useRouter();
@@ -41,7 +41,12 @@ const Navbar = () => {
               />
               <Search />
             </div>
-            <FaHeart className="ml-5 text-xl md:text-3xl cursor-pointer" />
+            <FaHeart
+              onClick={(e) => {
+                history.push("/wishlist");
+              }}
+              className="ml-5 text-xl md:text-3xl cursor-pointer"
+            />
             <FaShoppingCart
               onClick={(e) => {
                 history.push("/cart");
