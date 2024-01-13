@@ -10,7 +10,6 @@ import img5 from "@/app/Assets/categories/category (5).png";
 import img6 from "@/app/Assets/categories/category (6).png";
 import img7 from "@/app/Assets/categories/category (7).png";
 import img8 from "@/app/Assets/categories/category (8).png";
-import Image from "next/image";
 
 import {
   Navigation,
@@ -26,6 +25,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
+import CategoryBlock from "./CategoryBlock";
 
 const Categories = () => {
   return (
@@ -52,7 +52,7 @@ const Categories = () => {
           { image: img2, title: "Organza Silk" },
           { image: img1, title: "Banarasi Saree" },
         ].map((e, i) => {
-          return <Block key={i} data={e} />;
+          return <CategoryBlock key={i} data={e} />;
         })}
       </div>
       <div className="md:hidden pt-6">
@@ -79,26 +79,11 @@ const Categories = () => {
             { image: img1, title: "Banarasi Saree" },
           ].map((item, i) => (
             <SwiperSlide key={i}>
-              <Block data={item} />
+              <CategoryBlock data={item} />
             </SwiperSlide>
           ))}
         </Swiper>
       </div>
-    </div>
-  );
-};
-
-const Block = ({ data }) => {
-  return (
-    <div className="flex flex-col md:w-full w-9/12 md:pb-0 pb-10 mx-auto items-center relative cursor-pointer rounded-md transition-all hover:scale-105">
-      <Image
-        src={data?.image}
-        alt="Img"
-        className="w-full h-full object-cover object-center rounded-md transition-all"
-      />
-      <h1 className="text-2xl font-medium text-white absolute mt-0 pt-0 text-center bottom-16 md:bottom-10 left-1/2 -translate-x-1/2">
-        {data?.title}
-      </h1>
     </div>
   );
 };
