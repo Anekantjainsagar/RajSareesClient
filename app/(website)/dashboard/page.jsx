@@ -1,11 +1,11 @@
 "use client";
 import React, { useContext, useEffect, useState } from "react";
-import { salsa } from "../Utils/font";
+import { salsa } from "@/app/Utils/font";
 import Image from "next/image";
 import Icon from "./Add";
 import Context from "../Context/Context";
 import axios from "axios";
-import URL from "../Utils";
+import URL from "@/app/Utils";
 import { deleteCookie, getCookie } from "cookies-next";
 import toast, { Toaster } from "react-hot-toast";
 import { CiLogout } from "react-icons/ci";

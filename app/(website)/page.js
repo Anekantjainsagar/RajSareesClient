@@ -1,7 +1,7 @@
 import Image from "next/image";
 import React from "react";
 import hero from "@/app/Assets/hero.png";
-import { sansation } from "./Utils/font";
+import { sansation } from "@/app/Utils/font";
 import Featured from "./Components/Main/Featured";
 import Categories from "./Components/Main/Categories";
 import FOllowus from "./Components/Main/FollowUs";

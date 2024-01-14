@@ -1,5 +1,5 @@
 "use client";
-import Context from "@/app/Context/Context";
+import Context from "@/app/(website)/Context/Context";
 import React, { useContext, useEffect, useState } from "react";
 import Modal from "react-modal";
 import gsap, { Power2 } from "gsap";
@@ -8,6 +8,7 @@ import toast, { Toaster } from "react-hot-toast";
 import URL from "@/app/Utils";
 import axios from "axios";
 import { setCookie } from "cookies-next";
+import { useRouter } from "next/navigation";
 
 const customStyles = {
   overlay: { zIndex: 50 },
@@ -31,6 +32,7 @@ const Login = () => {
     showLogin,
     setShowLogin,
   } = useContext(Context);
+  const history = useRouter();
   const [login, setLogin] = useState({ email: "", password: "" });
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [register, setRegister] = useState({
@@ -86,11 +88,18 @@ const Login = () => {
         .post(`${URL}/user/signin`, { ...login })
         .then((res) => {
           if (res.status === 200) {
-            setLogin(res.data.data);
-            getUser();
-            setCookie("token", res.data.jwtToken);
-            setLoginModalOpen(false);
-            setLogin({ email: "", password: "" });
+            if (res.data.user == "Admin") {
+              history.push("/admin");
+              setCookie("admin_token", res.data.jwtToken);
+              setLoginModalOpen(false);
+              setLogin({ email: "", password: "" });
+            } else {
+              setLogin(res.data.data);
+              getUser();
+              setCookie("token", res.data.jwtToken);
+              setLoginModalOpen(false);
+              setLogin({ email: "", password: "" });
+            }
             toast.success("Login Successful");
           } else {
             toast.error(res.data.data);
@@ -201,7 +210,7 @@ const Login = () => {
                     toast.error("Please fill the email for the password reset");
                   } else {
                     axios
-                      .post(`${BASE_URL}/login/password-reset`, {
+                      .post(`${URL}/login/password-reset`, {
                         email: login?.email,
                       })
                       .then((res) => {

@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import ProductBlock from "../products/ProductBlock";
-import { sansation } from "../Utils/font";
+import { sansation } from "@/app/Utils/font";
 import MightLike from "../products/MightLike";
 
 const Wishlist = () => {

@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import Context from "./Context";
 import axios from "axios";
-import URL from "../Utils";
+import URL from "@/app/Utils/index";
 import { getCookie } from "cookies-next";
 
 const State = (props) => {

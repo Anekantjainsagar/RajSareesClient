@@ -1,10 +1,7 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Head from "next/head";
-import Navbar from "./Components/Navbar";
-import Footer from "./Components/Footer";
-import State from "./Context/State";
-import Login from "./Components/Login/Login";
+import State from "@/app/(website)/Context/State";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -40,12 +37,7 @@ export default function RootLayout({ children }) {
           <meta name="msapplication-TileColor" content="#da532c" />{" "}
           <meta name="theme-color" content="#ffffff" />
         </Head>
-        <body className={inter.className}>
-          <Login />
-          <Navbar />
-          {children}
-          <Footer />
-        </body>
+        <body className={inter.className}>{children}</body>
       </State>
     </html>
   );

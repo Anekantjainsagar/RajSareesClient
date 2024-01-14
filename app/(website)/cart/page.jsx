@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { sansation } from "../Utils/font";
+import { sansation } from "@/app/Utils/font";
 import product from "@/app/Assets/product.png";
 import Image from "next/image";
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";

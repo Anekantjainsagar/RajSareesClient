@@ -1,7 +1,7 @@
 "use client";
 import React, { useContext } from "react";
 import { FaClockRotateLeft } from "react-icons/fa6";
-import Context from "@/app/Context/Context";
+import Context from "@/app/(website)/Context/Context";
 import Modal from "react-modal";
 import toast, { Toaster } from "react-hot-toast";
 import { FaArrowRight } from "react-icons/fa";

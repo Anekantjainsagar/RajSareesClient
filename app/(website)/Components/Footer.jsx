@@ -1,7 +1,7 @@
 "use client";
 import React, { useContext } from "react";
-import { salsa, sansation } from "../Utils/font";
-import Context from "../Context/Context";
+import { salsa, sansation } from "@/app/Utils/font";
+import Context from "@/app/(website)/Context/Context";
 
 const Footer = () => {
   const data = [
