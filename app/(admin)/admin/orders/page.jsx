@@ -1,15 +1,15 @@
 "use client";
-import Context from "@/Context/Context";
+
 import { getCookie } from "cookies-next";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { useContext, useEffect, useState } from "react";
 import { AiOutlineDelete, AiOutlineEdit, AiOutlineEye } from "react-icons/ai";
 import toast, { Toaster } from "react-hot-toast";
-import URL from "@/Utils/urls";
 import axios from "axios";
 import Link from "next/link";
-import image from "@/(main)/Assets/dashboard-user-image.jpeg";
+// import image from "@/(main)/Assets/dashboard-user-image.jpeg";
+import Context from "@/app/(website)/Context/Context";
 
 const Orders = () => {
   const [sortStore, setSortStore] = useState("Sort By");
@@ -18,7 +18,7 @@ const Orders = () => {
 
   useEffect(() => {
     if (!getCookie("admin_token")) {
-      history.push("/user/login");
+      history.push("/");
     }
   }, []);
 
@@ -77,11 +77,6 @@ const Product = ({ data }) => {
   return (
     <div className="rounded-md grid grid-cols-3 items-center mb-3 cursor-pointer shadow-sm shadow-gray-200 p-2">
       <div className="flex items-center">
-        <Image
-          src={image}
-          alt="Image"
-          className="w-[4vw] rounded-full object-cover object-center"
-        />
         <div className="py-1 ml-3">
           <p className="font-bold text-[16px]">{data?.user?.name}</p>
           <div className="flex items-center">

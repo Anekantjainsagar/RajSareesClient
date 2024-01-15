@@ -16,7 +16,7 @@ const Users = () => {
 
   useEffect(() => {
     if (!getCookie("admin_token")) {
-      history.push("/user/login");
+      history.push("/");
     }
   }, []);
 

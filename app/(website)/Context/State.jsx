@@ -16,6 +16,8 @@ const State = (props) => {
   const [showSearchBar, setShowSearchBar] = useState(false);
   const [recent, setRecent] = useState("");
 
+  const [categories, setCategories] = useState([]);
+
   // Login Things
   const getUser = () => {
     if (getCookie("token")) {
@@ -39,9 +41,23 @@ const State = (props) => {
   const updateRecentSearch = () => {
     setRecent(localStorage.getItem("recent"));
   };
-
   useEffect(() => {
     updateRecentSearch();
+  }, []);
+
+  // Admin panel
+  const getCategories = () => {
+    axios
+      .get(`${URL}/category/get-all`)
+      .then((res) => {
+        setCategories(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  useEffect(() => {
+    getCategories();
   }, []);
 
   return (
@@ -63,6 +79,10 @@ const State = (props) => {
         setShowSearchBar,
         updateRecentSearch,
         recent,
+
+        // Admin things
+        categories,
+        getCategories,
       }}
     >
       {props.children}

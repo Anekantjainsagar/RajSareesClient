@@ -17,7 +17,7 @@ const Products = () => {
 
   useEffect(() => {
     if (!getCookie("admin_token")) {
-      history.push("/user/login");
+      history.push("/");
     }
   }, []);
 
