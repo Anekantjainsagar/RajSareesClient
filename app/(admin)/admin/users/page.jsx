@@ -22,7 +22,7 @@ const Users = () => {
 
   const getUsers = () => {
     axios
-      .get(`${URL}/user/get-users`)
+      .get(`${URL}/admin/get-users`)
       .then((response) => {
         setUsersData(response.data);
       })
@@ -104,30 +104,26 @@ const Product = ({ data, getUsers }) => {
   return (
     <div className="rounded-md grid grid-cols-3 items-center mb-3 cursor-pointer shadow-sm shadow-gray-200 p-2">
       <div className="flex items-center">
+        <Image
+          width={1000}
+          height={1000}
+          src={data?.image}
+          className="w-[5vw] h-[5vw] object-cover object-center rounded-full"
+          alt="Image"
+        />
         <div className="py-1 ml-3">
-          <p className="font-bold text-[16px]">{data?.name}</p>
+          <p className="font-bold text-lg">{data?.name}</p>
           <div className="flex items-center">
-            <p className="mt-0 text-newBlue text-xs font-bold">{data?.email}</p>
+            <p className="mt-0 text-newBlue text-sm font-medium">{data?.email}</p>
           </div>
         </div>
       </div>
       <div className="flex items-center flex-col">
-        <h1 className="py-0 font-semibold text-newBlue">{data?.phone}</h1>
+        <h1 className="py-0 text-newBlue">{data?.phone}</h1>
       </div>
-      <div className="flex justify-end items-center">
-        <AiOutlineDelete
-          className="text-red-500 bg-red-50 p-2 rounded-full hover:text-white hover:bg-red-500 transition-all mr-3"
-          size={35}
-          onClick={(e) => {
-            axios.post(`${URL}/user/delete-user/${data?._id}`).then((res) => {
-              if (res.status === 200 && res.data.deletedCount > 0) {
-                getUsers();
-                toast.success("Deleted successfully");
-              }
-            });
-          }}
-        />
-      </div>
+      <p className="text-center">
+        {data?.address}, {data?.city}, {data?.state}, India {data?.pincode}
+      </p>
     </div>
   );
 };

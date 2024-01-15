@@ -17,6 +17,7 @@ const Navbar = () => {
     login,
     showSearchBar,
     setShowSearchBar,
+    categories,
   } = useContext(Context);
 
   return (
@@ -84,24 +85,24 @@ const Navbar = () => {
         </div>
         <div className="bg-gradient-to-r from-[#e9ab2600] via-newYellow to-[#e9ab2600] h-[1px] my-2 w-full"></div>
         <div
-          className={`${sansation.className} flex items-center justify-between py-2 px-4 md:px-[7vw] md:text-lg`}
+          className={`${sansation.className} flex items-center justify-between py-2 px-4 md:px-[5vw] md:text-lg`}
         >
-          {[
-            "New Arrivals",
-            "Ethinic Wear",
-            "Party Wear",
-            "Festive Sarees",
-            "Wedding Sarees",
-          ].map((e) => {
-            return (
-              <p
-                key={e}
-                className="text-center md:text-lg hover:border-b border-b-grey text-sm cursor-pointer"
-              >
-                {e}
-              </p>
-            );
-          })}
+          <p className="text-center md:text-lg hover:border-b border-b-grey text-sm cursor-pointer">
+            New Arrivals
+          </p>
+          {categories
+            ?.reverse()
+            ?.slice(1, 5)
+            ?.map((e, i) => {
+              return (
+                <p
+                  key={i}
+                  className="text-center md:text-lg hover:border-b border-b-grey text-sm cursor-pointer"
+                >
+                  {e?.title}
+                </p>
+              );
+            })}
         </div>
       </div>
       <div className="py-[14vw] md:py-[4.2vw]"></div>

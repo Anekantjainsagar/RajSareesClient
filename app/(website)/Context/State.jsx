@@ -17,6 +17,7 @@ const State = (props) => {
   const [recent, setRecent] = useState("");
 
   const [categories, setCategories] = useState([]);
+  const [products, setProducts] = useState([]);
 
   // Login Things
   const getUser = () => {
@@ -58,7 +59,19 @@ const State = (props) => {
   };
   useEffect(() => {
     getCategories();
+    getProducts();
   }, []);
+
+  const getProducts = () => {
+    axios
+      .get(`${URL}/product/get-all`)
+      .then((res) => {
+        setProducts(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   return (
     <Context.Provider
@@ -83,6 +96,8 @@ const State = (props) => {
         // Admin things
         categories,
         getCategories,
+        getProducts,
+        products,
       }}
     >
       {props.children}

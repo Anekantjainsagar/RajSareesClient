@@ -1,16 +1,6 @@
 "use client";
 import { salsa, sansation } from "@/app/Utils/font";
-import React from "react";
-
-import img1 from "@/app/Assets/categories/category (1).png";
-import img2 from "@/app/Assets/categories/category (2).png";
-import img3 from "@/app/Assets/categories/category (3).png";
-import img4 from "@/app/Assets/categories/category (4).png";
-import img5 from "@/app/Assets/categories/category (5).png";
-import img6 from "@/app/Assets/categories/category (6).png";
-import img7 from "@/app/Assets/categories/category (7).png";
-import img8 from "@/app/Assets/categories/category (8).png";
-
+import React, { useContext } from "react";
 import {
   Navigation,
   Pagination,
@@ -26,8 +16,11 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import CategoryBlock from "./CategoryBlock";
+import Context from "../../Context/Context";
 
 const Categories = () => {
+  const { categories } = useContext(Context);
+
   return (
     <div className="py-12 md:py-16 text-grey">
       <div className={`${salsa.className} flex items-center justify-between`}>
@@ -42,16 +35,7 @@ const Categories = () => {
       <div
         className={`hidden md:grid grid-cols-4 gap-x-8 gap-y-8 mt-4 px-10 pt-3 ${sansation.className}`}
       >
-        {[
-          { image: img8, title: "Sarees" },
-          { image: img7, title: "Ethnic Wear" },
-          { image: img6, title: "Party Wear" },
-          { image: img5, title: "Cotton Saree" },
-          { image: img4, title: "Georgette Saree" },
-          { image: img3, title: "Rajputi Poshak" },
-          { image: img2, title: "Organza Silk" },
-          { image: img1, title: "Banarasi Saree" },
-        ].map((e, i) => {
+        {categories.map((e, i) => {
           return <CategoryBlock key={i} data={e} />;
         })}
       </div>
@@ -68,16 +52,7 @@ const Categories = () => {
           }}
           cssMode={true}
         >
-          {[
-            { image: img8, title: "Sarees" },
-            { image: img7, title: "Ethnic Wear" },
-            { image: img6, title: "Party Wear" },
-            { image: img5, title: "Cotton Saree" },
-            { image: img4, title: "Georgette Saree" },
-            { image: img3, title: "Rajputi Poshak" },
-            { image: img2, title: "Organza Silk" },
-            { image: img1, title: "Banarasi Saree" },
-          ].map((item, i) => (
+          {categories.map((item, i) => (
             <SwiperSlide key={i}>
               <CategoryBlock data={item} />
             </SwiperSlide>

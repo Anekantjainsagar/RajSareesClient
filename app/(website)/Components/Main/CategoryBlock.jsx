@@ -1,12 +1,16 @@
+import { sansation } from "@/app/Utils/font";
 import Image from "next/image";
 import React from "react";
 
-
 const CategoryBlock = ({ data }) => {
   return (
-    <div className="flex flex-col md:w-full w-9/12 md:pb-0 pb-10 mx-auto items-center relative cursor-pointer rounded-md transition-all hover:scale-105">
+    <div
+      className={`${sansation.className} flex flex-col md:w-full w-9/12 md:pb-0 pb-10 mx-auto items-center relative cursor-pointer rounded-md transition-all hover:scale-105`}
+    >
       <Image
         src={data?.image}
+        width={1000}
+        height={1000}
         alt="Img"
         className="w-full h-full object-cover object-center rounded-md transition-all"
       />
