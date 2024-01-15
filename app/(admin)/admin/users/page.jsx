@@ -1,13 +1,13 @@
 "use client";
-import URL from "@/Utils/urls";
 import axios from "axios";
 import { getCookie } from "cookies-next";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { AiOutlineDelete } from "react-icons/ai";
-import image from "@/(main)/Assets/dashboard-user-image.jpeg";
+// import image from "@/(main)/Assets/dashboard-user-image.jpeg";
 import toast, { Toaster } from "react-hot-toast";
+import URL from "@/app/Utils";
 
 const Users = () => {
   const history = useRouter();
@@ -104,11 +104,6 @@ const Product = ({ data, getUsers }) => {
   return (
     <div className="rounded-md grid grid-cols-3 items-center mb-3 cursor-pointer shadow-sm shadow-gray-200 p-2">
       <div className="flex items-center">
-        <Image
-          src={image}
-          alt="Image"
-          className="w-[4vw] rounded-full object-cover object-center"
-        />
         <div className="py-1 ml-3">
           <p className="font-bold text-[16px]">{data?.name}</p>
           <div className="flex items-center">
