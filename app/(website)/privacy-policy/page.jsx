@@ -7,13 +7,14 @@ const PrivacyPolicy = () => {
       <h1 className="text-brown text-2xl font-bold">Privacy Policy</h1>
       <div className="px-2 md:px-4 mt-2">
         <p className="mb-2">
-          This privacy policy (“Policy”) relates to the manner SAROJ SURIN
-          RATHORE (“we”, “us”, “our”) in which we use, handle and process the
-          data that you provide us in connection with using the products or
-          services we offer. By using this website or by availing goods or
-          services offered by us, you agree to the terms and conditions of this
-          Policy, and consent to our use, storage, disclosure, and transfer of
-          your information or data in the manner described in this Policy.
+          This privacy policy (&quot;Policy&quot;) relates to the manner SAROJ
+          SURIN RATHORE (&quot;we&quot;, &quot;us&quot;, &quot;our&quot;) in
+          which we use, handle and process the data that you provide us in
+          connection with using the products or services we offer. By using this
+          website or by availing goods or services offered by us, you agree to
+          the terms and conditions of this Policy, and consent to our use,
+          storage, disclosure, and transfer of your information or data in the
+          manner described in this Policy.
         </p>
         <p className="mb-2">
           We are committed to ensuring that your privacy is protected in
@@ -93,13 +94,13 @@ const PrivacyPolicy = () => {
             How we use cookie
           </h1>
           <div className="px-4">
-            We use "cookies" to collect information and to better understand
-            customer behaviour. You can instruct your browser to refuse all
-            cookies or to indicate when a cookie is being sent. However, if you
-            do not accept cookies, you may not be able to avail our goods or
-            services to the full extent. We do not control the use of cookies by
-            third parties. The third party service providers have their own
-            privacy policies addressing how they use such information.
+            We use &quot;cookies&quot; to collect information and to better
+            understand customer behaviour. You can instruct your browser to
+            refuse all cookies or to indicate when a cookie is being sent.
+            However, if you do not accept cookies, you may not be able to avail
+            our goods or services to the full extent. We do not control the use
+            of cookies by third parties. The third party service providers have
+            their own privacy policies addressing how they use such information.
           </div>
         </div>
         <div className="mb-4">
