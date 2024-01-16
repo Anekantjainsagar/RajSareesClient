@@ -99,23 +99,20 @@ const Navbar = () => {
           >
             New Arrivals
           </p>
-          {categories
-            ?.reverse()
-            ?.slice(1, 5)
-            ?.map((e, i) => {
-              return (
-                <p
-                  key={i}
-                  onClick={(ev) => {
-                    setCategoryFilter(e?._id);
-                    history.push("/products");
-                  }}
-                  className="text-center md:text-lg hover:border-b border-b-grey text-sm cursor-pointer"
-                >
-                  {e?.title}
-                </p>
-              );
-            })}
+          {categories?.slice(1, 5)?.map((e, i) => {
+            return (
+              <p
+                key={i}
+                onClick={(ev) => {
+                  setCategoryFilter(e?._id);
+                  history.push("/products");
+                }}
+                className="text-center md:text-lg hover:border-b border-b-grey text-sm cursor-pointer"
+              >
+                {e?.title}
+              </p>
+            );
+          })}
         </div>
       </div>
       <div className="py-[14vw] md:py-[4.2vw]"></div>
