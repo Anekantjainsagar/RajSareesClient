@@ -4,15 +4,15 @@ import { getCookie } from "cookies-next";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { useContext, useEffect, useState } from "react";
-import { AiOutlineDelete, AiOutlineEdit, AiOutlineEye } from "react-icons/ai";
+import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
 import toast, { Toaster } from "react-hot-toast";
 import URL from "@/app/Utils/index";
 import axios from "axios";
-import Link from "next/link";
+import { MdOutlineStar, MdOutlineStarBorder } from "react-icons/md";
 
 const Products = () => {
   const [sortStore, setSortStore] = useState("Sort By");
-  const { products } = useContext(Context);
+  const { products, } = useContext(Context);
   const history = useRouter();
 
   useEffect(() => {
@@ -43,6 +43,7 @@ const Products = () => {
                 "Price High to Low",
                 "Ascending",
                 "Descending",
+                "Featured",
               ].map((e, i) => {
                 return (
                   <option value={e} key={i}>
@@ -110,6 +111,8 @@ const Products = () => {
                   fb = new Date(b.date);
 
                 return fa - fb;
+              } else if (sortStore === "Featured") {
+                return b?.featured - a?.featured;
               }
               return 0;
             })
@@ -159,6 +162,45 @@ const Product = ({ data }) => {
             size={35}
           />
         </Link> */}
+        {data?.featured ? (
+          <MdOutlineStar
+            className="text-yellow-500 bg-yellow-50 p-2 rounded-full hover:text-white hover:bg-yellow-500 transition-all mr-3"
+            size={35}
+            onClick={(e) => {
+              axios
+                .post(`${URL}/product/remove-featured/${data?._id}`)
+                .then((res) => {
+                  if (res.status == 200) {
+                    getProducts();
+                    toast.success("Product removed from featured successfully");
+                  }
+                })
+                .catch((err) => {
+                  toast.error(err.message);
+                });
+            }}
+          />
+        ) : (
+          <MdOutlineStarBorder
+            className="text-yellow-500 bg-yellow-50 p-2 rounded-full hover:text-white hover:bg-yellow-500 transition-all mr-3"
+            size={35}
+            onClick={(e) => {
+              axios
+                .post(`${URL}/product/featured/${data?._id}`)
+                .then((res) => {
+                  if (res.status == 200) {
+                    getProducts();
+                    toast.success("Product added to featured successfully");
+                  } else {
+                    toast.error("Please remove some items from featured");
+                  }
+                })
+                .catch((err) => {
+                  toast.error(err.message);
+                });
+            }}
+          />
+        )}
         <AiOutlineEdit
           className="text-blue-500 bg-blue-50 p-2 rounded-full hover:text-white hover:bg-blue-500 transition-all mr-3"
           size={35}

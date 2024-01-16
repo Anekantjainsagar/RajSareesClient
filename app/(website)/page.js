@@ -1,12 +1,19 @@
+"use client";
 import Image from "next/image";
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import hero from "@/app/Assets/hero.png";
 import { sansation } from "@/app/Utils/font";
 import Featured from "./Components/Main/Featured";
 import Categories from "./Components/Main/Categories";
 import FOllowus from "./Components/Main/FollowUs";
+import Context from "./Context/Context";
 
 const App = () => {
+  const { setCategoryFilter } = useContext(Context);
+  useEffect(() => {
+    setCategoryFilter("");
+  }, []);
+
   return (
     <div className="bg-orange px-[4vw] pb-10">
       <div

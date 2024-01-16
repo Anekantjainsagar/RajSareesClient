@@ -1,5 +1,5 @@
 "use client";
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { FaClockRotateLeft } from "react-icons/fa6";
 import Context from "@/app/(website)/Context/Context";
 import Modal from "react-modal";
@@ -7,15 +7,6 @@ import toast, { Toaster } from "react-hot-toast";
 import { FaArrowRight } from "react-icons/fa";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { salsa, sansation } from "@/app/Utils/font";
-
-import img1 from "@/app/Assets/categories/category (1).png";
-import img2 from "@/app/Assets/categories/category (2).png";
-import img3 from "@/app/Assets/categories/category (3).png";
-import img4 from "@/app/Assets/categories/category (4).png";
-import img5 from "@/app/Assets/categories/category (5).png";
-import img6 from "@/app/Assets/categories/category (6).png";
-import img7 from "@/app/Assets/categories/category (7).png";
-import img8 from "@/app/Assets/categories/category (8).png";
 
 import {
   Navigation,
@@ -32,6 +23,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 const customStyles = {
   overlay: { zIndex: 50 },
@@ -48,14 +40,22 @@ const customStyles = {
 };
 
 const Search = () => {
+  const history = useRouter();
   const {
+    categories,
     search,
     setSearch,
     showSearchBar,
     recent,
     updateRecentSearch,
     setShowSearchBar,
+    setCategoryFilter,
   } = useContext(Context);
+
+  useEffect(() => {
+    setSearch("")
+  }, [])
+  
 
   return (
     <div className="z-50">
@@ -82,7 +82,7 @@ const Search = () => {
                 localStorage.setItem("recent", search);
                 updateRecentSearch();
                 setShowSearchBar(!showSearchBar);
-                setSearch("");
+                history.push("/products");
               }
             }}
             autoFocus={true}
@@ -101,20 +101,18 @@ const Search = () => {
           <div className="px-3 bg-white py-1 mt-2 rounded-md">
             <p className="text-grey font-medium">Popular Searches</p>
             <div className="flex items-center flex-wrap mt-2 px-1">
-              {[
-                "Saree",
-                "Cotton Saree",
-                "Ethnic Saree",
-                "Wedding saree",
-                "Preety Saree",
-                "Pink Saree",
-              ].map((e) => {
+              {categories.map((e, i) => {
                 return (
                   <p
-                    key={e}
+                    onClick={(ev) => {
+                      setCategoryFilter(e?._id);
+                      history.push("/products");
+                      setShowSearchBar(false);
+                    }}
+                    key={i}
                     className="text-sm cursor-pointer border border-grey px-3 py-0.5 rounded-md mr-2 mb-2"
                   >
-                    {e}
+                    {e?.title}
                   </p>
                 );
               })}

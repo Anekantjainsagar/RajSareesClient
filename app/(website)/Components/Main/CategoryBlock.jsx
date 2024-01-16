@@ -1,10 +1,19 @@
 import { sansation } from "@/app/Utils/font";
 import Image from "next/image";
-import React from "react";
+import React, { useContext } from "react";
+import Context from "../../Context/Context";
+import { useRouter } from "next/navigation";
 
 const CategoryBlock = ({ data }) => {
+  const history = useRouter();
+  const { setCategoryFilter } = useContext(Context);
+
   return (
     <div
+      onClick={(e) => {
+        setCategoryFilter(data?._id);
+        history.push("/products");
+      }}
       className={`${sansation.className} flex flex-col md:w-full w-9/12 md:pb-0 pb-10 mx-auto items-center relative cursor-pointer rounded-md transition-all hover:scale-105`}
     >
       <Image

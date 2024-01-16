@@ -18,6 +18,8 @@ const Navbar = () => {
     showSearchBar,
     setShowSearchBar,
     categories,
+    setSortStore,
+    setCategoryFilter,
   } = useContext(Context);
 
   return (
@@ -87,7 +89,14 @@ const Navbar = () => {
         <div
           className={`${sansation.className} flex items-center justify-between py-2 px-4 md:px-[5vw] md:text-lg`}
         >
-          <p className="text-center md:text-lg hover:border-b border-b-grey text-sm cursor-pointer">
+          <p
+            onClick={(e) => {
+              setSortStore("New Arrivals");
+              setCategoryFilter("");
+              history.push("/products");
+            }}
+            className="text-center md:text-lg hover:border-b border-b-grey text-sm cursor-pointer"
+          >
             New Arrivals
           </p>
           {categories
@@ -97,6 +106,10 @@ const Navbar = () => {
               return (
                 <p
                   key={i}
+                  onClick={(ev) => {
+                    setCategoryFilter(e?._id);
+                    history.push("/products");
+                  }}
                   className="text-center md:text-lg hover:border-b border-b-grey text-sm cursor-pointer"
                 >
                   {e?.title}

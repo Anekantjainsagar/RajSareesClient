@@ -1,7 +1,7 @@
 "use client";
 import { salsa } from "@/app/Utils/font";
 import Image from "next/image";
-import React from "react";
+import React, { useContext } from "react";
 import { FaArrowRight } from "react-icons/fa";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 
@@ -25,8 +25,10 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import { useRouter } from "next/navigation";
+import Context from "../../Context/Context";
 
 const Featured = () => {
+  const { products } = useContext(Context);
   const history = useRouter();
 
   return (
@@ -47,9 +49,13 @@ const Featured = () => {
         </div>
       </div>
       <div className="mt-4 px-6 hidden md:grid gap-x-6 grid-cols-4 pt-3">
-        {[img2, img3, img4, img1].map((e, i) => {
-          return <Block key={i} data={e} />;
-        })}
+        {products
+          ?.filter((e) => {
+            return e?.featured;
+          })
+          .map((e, i) => {
+            return <Block key={i} data={e} />;
+          })}
       </div>
       <div className="md:hidden md:mt-0 mt-5">
         <Swiper
@@ -64,11 +70,15 @@ const Featured = () => {
           }}
           cssMode={true}
         >
-          {[img2, img3, img4, img1].map((item, i) => (
-            <SwiperSlide key={i}>
-              <Block data={item} />
-            </SwiperSlide>
-          ))}
+          {products
+            ?.filter((e) => {
+              return e?.filter;
+            })
+            .map((item, i) => (
+              <SwiperSlide key={i}>
+                <Block data={item} />
+              </SwiperSlide>
+            ))}
         </Swiper>
       </div>
     </div>
@@ -77,18 +87,28 @@ const Featured = () => {
 
 const Block = ({ data }) => {
   const history = useRouter();
+
   return (
     <div
       onClick={(e) => {
-        history.push("products/1");
+        let title = data?.name?.replaceAll(" ", "-")?.toLowerCase();
+        history.push(`/products/${title}`);
       }}
       className="flex text-grey flex-col items-center pb-10 md:py-2 cursor-pointer hover:scale-105 transition-all hover:shadow-lg shadow-brown rounded-lg"
     >
-      <Image src={data} alt="Img" className="w-9/12" />
-      <h1 className="text-xl font-medium mt-2">Navvali Sarees</h1>
+      <Image
+        src={data?.images[0]}
+        width={1000}
+        height={1000}
+        alt="Img"
+        className="w-9/12 h-[47vh] object-cover object-center rounded-md"
+      />
+      <h1 className="text-xl font-medium mt-2 text-center text-clip	">
+        {data?.name?.slice(0, 23) + (data?.name?.length > 23 ? "..." : "")}
+      </h1>
       <p>
-        MRP <span className="line-through mx-2">₹ 1000</span>
-        <span>₹ 799</span>
+        MRP <span className="line-through mx-2">₹ {data?.discountPrice}</span>
+        <span>₹ {data?.price}</span>
       </p>
       <button className="bg-brown text-white text-lg my-2 flex items-center justify-center py-1.5 w-9/12 rounded-full shadow-md shadow-gray-300">
         <AiOutlineShoppingCart size={25} className="mr-2" /> Add to Cart

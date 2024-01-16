@@ -19,6 +19,9 @@ const State = (props) => {
   const [categories, setCategories] = useState([]);
   const [products, setProducts] = useState([]);
 
+  const [sortStore, setSortStore] = useState("Relevance");
+  const [categoryFilter, setCategoryFilter] = useState("");
+
   // Login Things
   const getUser = () => {
     if (getCookie("token")) {
@@ -57,14 +60,9 @@ const State = (props) => {
         console.log(err);
       });
   };
-  useEffect(() => {
-    getCategories();
-    getProducts();
-  }, []);
-
   const getProducts = () => {
     axios
-      .get(`${URL}/product/get-all`)
+      .get(`${URL}/product/get-all?categoryIds=${categoryFilter}`)
       .then((res) => {
         setProducts(res.data);
       })
@@ -72,6 +70,14 @@ const State = (props) => {
         console.log(err);
       });
   };
+
+  useEffect(() => {
+    getCategories();
+  }, []);
+
+  useEffect(() => {
+    getProducts();
+  }, [categoryFilter]);
 
   return (
     <Context.Provider
@@ -92,6 +98,10 @@ const State = (props) => {
         setShowSearchBar,
         updateRecentSearch,
         recent,
+        sortStore,
+        setSortStore,
+        categoryFilter,
+        setCategoryFilter,
 
         // Admin things
         categories,

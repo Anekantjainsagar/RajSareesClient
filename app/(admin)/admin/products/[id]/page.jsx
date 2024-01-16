@@ -56,7 +56,7 @@ const AddProduct = ({ params }) => {
       discountPrice: product?.discountPrice,
       quantity: product?.quantity,
       description: product?.description,
-      category_id: product?.category_id,
+      category_id: product?.category_id?._id,
     });
     setImage1(product?.images[0]);
     setImage2(product?.images[1]);

@@ -38,12 +38,10 @@ const AdminPage = () => {
         <p className="text-black font-bold px-4 border-b pb-2">
           All Products ({products?.length})
         </p>
-        <div className="px-2 pt-4">
+        <div className="px-2 py-4">
           <Swiper
             slidesPerView={6}
             modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
-            pagination={{ clickable: true }}
-            navigation
             loop={true}
             autoplay={{
               interval: 1000,
@@ -51,13 +49,6 @@ const AdminPage = () => {
             }}
             cssMode={true}
           >
-            {products?.map((e, i) => {
-              return (
-                <SwiperSlide key={i}>
-                  <Product data={e} />
-                </SwiperSlide>
-              );
-            })}
             {products?.map((e, i) => {
               return (
                 <SwiperSlide key={i}>
@@ -99,7 +90,7 @@ const AdminPage = () => {
 
 const Product = ({ data }) => {
   return (
-    <div className="rounded-md border mb-10 cursor-pointer shadow-sm shadow-gray-200 p-2 w-11/12 mx-auto">
+    <div className="rounded-md border cursor-pointer transition-all hover:scale-105 shadow-sm shadow-gray-200 p-2 w-11/12 mx-auto">
       <Image
         src={data?.images[0]}
         width={100}
@@ -108,7 +99,7 @@ const Product = ({ data }) => {
         className="w-full h-[34vh] rounded-md object-cover object-center"
       />
       <div className="py-1">
-        <p className="text-black font-bold">{data?.name}</p>
+        <p className="text-black font-bold">{data?.name?.slice(0,20)}</p>
         <div className="flex items-center">
           <p className="mt-0 text-newBlue text-xs font-semibold">
             INR {data?.price}
