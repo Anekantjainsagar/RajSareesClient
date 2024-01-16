@@ -7,16 +7,18 @@ import { useRouter } from "next/navigation";
 const Footer = () => {
   const data = [
     {
-      name: "Quick Links",
-      routes: [{ name: "Woman" }, { name: "Collection" }, { name: "Virtual" }],
-    },
-    {
       name: "Policies",
       routes: [
-        { name: "Terms & Conditions" },
-        { name: "Shipping" },
-        { name: "Return" },
+        { name: "Cancellation & Refund Policy", route: "/refund" },
+        { name: "Shipping & Delivery Policy", route: "/shipping" },
+        { name: "Terms & Conditions", route: "/tnc" },
+        { name: "Privacy Policy", route: "/privacy-policy" },
+        { name: "Contact Us", route: "/contact-us" },
       ],
+    },
+    {
+      name: "Quick Links",
+      routes: [{ name: "Woman" }, { name: "Collection" }, { name: "Virtual" }],
     },
     {
       name: "My Account",
