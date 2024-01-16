@@ -12,6 +12,8 @@ import ProductBlock from "./ProductBlock";
 import Context from "../Context/Context";
 
 const Products = () => {
+  const [firstValue, setFirstValue] = useState(Number.MAX_SAFE_INTEGER);
+  const [secondValue, setSecondValue] = useState(Number.MIN_SAFE_INTEGER);
   const {
     products,
     categories,
@@ -19,6 +21,7 @@ const Products = () => {
     setSortStore,
     categoryFilter,
     setCategoryFilter,
+    setSearch,
     search,
   } = useContext(Context);
   const openSidebar = () => {
@@ -35,6 +38,22 @@ const Products = () => {
       { x: "50%", ease: Power2.easeInOut, duration: 1 }
     );
   };
+
+  function handleRanges(value) {
+    setFirstValue(value[0]);
+    setSecondValue(value[1]);
+  }
+
+  useEffect(() => {
+    products?.map((e) => {
+      if (firstValue > e?.price) {
+        setFirstValue(e?.price);
+      }
+      if (secondValue < e?.price) {
+        setSecondValue(e?.price);
+      }
+    });
+  }, [products]);
 
   return (
     <div
@@ -61,13 +80,42 @@ const Products = () => {
             current={categoryFilter}
             setCurrent={setCategoryFilter}
           />
+          <Line />
+          <PriceBlock
+            name={"Price"}
+            firstValue={firstValue}
+            secondValue={secondValue}
+            handleRanges={handleRanges}
+          />
         </div>
       </div>
       <div className="md:w-10/12 md:ml-4">
-        <div className="flex items-start md:items-center justify-between mb-4 -mt-1">
-          <h1 className="md:text-xl text-gray-500">
+        <h1 className="text-lg md:hidden flex items-center justify-between mb-5 text-gray-500">
+          <p>
             Search Results for{" "}
-            <span className="text-grey">&quot;{search}&quot;</span>
+            <span className="text-grey ml-1">&quot;{search}&quot;</span>
+          </p>
+          {search && (
+            <AiOutlineClose
+              className="text-lg ml-1 md:ml-4 cursor-pointer"
+              onClick={(e) => {
+                setSearch("");
+              }}
+            />
+          )}
+        </h1>
+        <div className="flex items-start md:items-center justify-end md:justify-between mb-4 -mt-1">
+          <h1 className="text-lg md:flex hidden md:text-xl items-center text-gray-500">
+            Search Results for{" "}
+            <span className="text-grey ml-1">&quot;{search}&quot;</span>
+            {search && (
+              <AiOutlineClose
+                className="text-lg ml-1 md:ml-4 cursor-pointer"
+                onClick={(e) => {
+                  setSearch("");
+                }}
+              />
+            )}
           </h1>
           <div className="flex items-center">
             <select
@@ -101,6 +149,7 @@ const Products = () => {
             />
           </div>
         </div>
+
         <div className="grid md:grid-cols-4 gap-x-6 gap-y-6 px-2">
           {products
             ?.sort((a, b) => {
@@ -161,6 +210,13 @@ const Products = () => {
               }
               return 0;
             })
+            ?.filter((e) => {
+              if (search) {
+                return e?.name?.toLowerCase()?.includes(search?.toLowerCase());
+              } else {
+                return e;
+              }
+            })
             ?.map((e, i) => {
               return <ProductBlock key={i} data={e} />;
             })}
@@ -220,6 +276,40 @@ const FilterBlock = ({ name, value, current, setCurrent }) => {
           )}
         </>
       )}
+    </>
+  );
+};
+
+const PriceBlock = ({ name, handleRanges, firstValue, secondValue }) => {
+  const [showFilter, setShowFilter] = useState(true);
+
+  return (
+    <>
+      <div
+        onClick={(e) => {
+          setShowFilter(!showFilter);
+        }}
+        className="flex items-center md:text-base text-lg justify-between py-0.5 cursor-pointer"
+      >
+        <p className="font-medium">{name}</p>
+        {showFilter && <AiOutlineUp />}
+        {!showFilter && <AiOutlineDown />}
+      </div>
+      {/* {showFilter && (
+        <div className="px-2 mt-2 text-grey py-1">
+          <RangeSlider
+            defaultValue={[firstValue, secondValue]}
+            min={firstValue}
+            progress
+            max={secondValue}
+            onChange={handleRanges}
+          />
+          <p className="mt-3 px-1 w-full flex items-center justify-between text-sm">
+            <span>{firstValue}</span>
+            <span>{secondValue}</span>
+          </p>
+        </div>
+      )} */}
     </>
   );
 };

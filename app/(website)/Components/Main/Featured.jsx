@@ -3,7 +3,7 @@ import { salsa } from "@/app/Utils/font";
 import Image from "next/image";
 import React, { useContext } from "react";
 import { FaArrowRight } from "react-icons/fa";
-import { AiOutlineShoppingCart } from "react-icons/ai";
+import { AiOutlineDelete, AiOutlineShoppingCart } from "react-icons/ai";
 
 import img1 from "@/app/Assets/featured/1 (1).png";
 import img2 from "@/app/Assets/featured/1 (2).png";
@@ -87,6 +87,7 @@ const Featured = () => {
 
 const Block = ({ data }) => {
   const history = useRouter();
+  const { cart, removeFromCart, addToCart } = useContext(Context);
 
   return (
     <div
@@ -110,9 +111,27 @@ const Block = ({ data }) => {
         MRP <span className="line-through mx-2">₹ {data?.discountPrice}</span>
         <span>₹ {data?.price}</span>
       </p>
-      <button className="bg-brown text-white text-lg my-2 flex items-center justify-center py-1.5 w-9/12 rounded-full shadow-md shadow-gray-300">
-        <AiOutlineShoppingCart size={25} className="mr-2" /> Add to Cart
-      </button>
+      {cart?.find((e) => e?._id === data?._id) ? (
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            removeFromCart(data);
+          }}
+          className="bg-white text-brown my-2 flex items-center border border-brown justify-center py-1.5 w-9/12 rounded-full shadow-md shadow-gray-300 hover:scale-105 transition-all"
+        >
+          <AiOutlineDelete className="mr-2 text-xl" /> Remove from Cart
+        </button>
+      ) : (
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            addToCart(data);
+          }}
+          className="bg-brown text-white my-2 flex items-center border border-white justify-center py-1.5 w-9/12 rounded-full shadow-md shadow-gray-300 hover:scale-105 transition-all"
+        >
+          <AiOutlineShoppingCart className="mr-2 text-xl" /> Add to Cart
+        </button>
+      )}
     </div>
   );
 };

@@ -4,8 +4,12 @@ import Context from "./Context";
 import axios from "axios";
 import URL from "@/app/Utils/index";
 import { getCookie } from "cookies-next";
+import { usePathname, useRouter } from "next/navigation";
 
 const State = (props) => {
+  const pathname = usePathname();
+  const history = useRouter();
+
   // Login States
   const [loginModalOpen, setLoginModalOpen] = useState(false);
   const [showLogin, setShowLogin] = useState(true);
@@ -18,6 +22,7 @@ const State = (props) => {
 
   const [categories, setCategories] = useState([]);
   const [products, setProducts] = useState([]);
+  const [cart, setCart] = useState([]);
 
   const [sortStore, setSortStore] = useState("Relevance");
   const [categoryFilter, setCategoryFilter] = useState("");
@@ -45,8 +50,64 @@ const State = (props) => {
   const updateRecentSearch = () => {
     setRecent(localStorage.getItem("recent"));
   };
+  const addToWishlist = (product) => {
+    if (getCookie("token")) {
+      axios
+        .post(`${URL}/product/add-to-wishlist/${product}`, {
+          token: getCookie("token"),
+        })
+        .then((res) => {
+          if (res?.data?.modifiedCount > 0) {
+            getUser();
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  };
+  const removeFromWishlist = (product) => {
+    if (getCookie("token")) {
+      axios
+        .post(`${URL}/product/remove-from-wishlist/${product}`, {
+          token: getCookie("token"),
+        })
+        .then((res) => {
+          if (res?.data?.modifiedCount > 0) {
+            getUser();
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  };
+  const addToCart = (product) => {
+    let temp = localStorage.getItem("cart");
+    product = { ...product, quantity: 1 };
+    if (temp) {
+      temp = JSON.parse(temp);
+      setCart([...temp, product]);
+      let data = JSON.stringify([...temp, product]);
+      localStorage.setItem("cart", data);
+    } else {
+      setCart([product]);
+      let data = JSON.stringify([product]);
+      localStorage.setItem("cart", data);
+    }
+  };
+  const removeFromCart = (product) => {
+    let data = JSON.parse(localStorage.getItem("cart"));
+    if (data) {
+      data = data?.filter((e) => e?._id != product?._id);
+      setCart(data);
+      localStorage.setItem("cart", JSON.stringify(data));
+    }
+  };
   useEffect(() => {
     updateRecentSearch();
+    const data = JSON.parse(localStorage.getItem("cart"));
+    setCart(data);
   }, []);
 
   // Admin panel
@@ -74,10 +135,22 @@ const State = (props) => {
   useEffect(() => {
     getCategories();
   }, []);
-
   useEffect(() => {
     getProducts();
   }, [categoryFilter]);
+
+  useEffect(() => {
+    if (!getCookie("token")) {
+      history.push("/");
+      setShowLogin(false);
+      setLoginModalOpen(true);
+    }
+  }, [
+    pathname.includes("/products/"),
+    pathname.includes("/wishlist"),
+    pathname.includes("/dashboard"),
+    pathname.includes("/cart"),
+  ]);
 
   return (
     <Context.Provider
@@ -102,6 +175,11 @@ const State = (props) => {
         setSortStore,
         categoryFilter,
         setCategoryFilter,
+        addToWishlist,
+        removeFromWishlist,
+        addToCart,
+        removeFromCart,
+        cart,
 
         // Admin things
         categories,

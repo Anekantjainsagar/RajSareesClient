@@ -2,17 +2,23 @@
 import Image from "next/image";
 import React, { useContext, useEffect, useState } from "react";
 import img from "@/app/Assets/product.png";
-import { AiOutlineHeart, AiOutlineShoppingCart } from "react-icons/ai";
+import {
+  AiFillHeart,
+  AiOutlineHeart,
+  AiOutlineShoppingCart,
+} from "react-icons/ai";
 import { CiShare2 } from "react-icons/ci";
 import { FaAngleDoubleRight } from "react-icons/fa";
 import { salsa, sansation } from "@/app/Utils/font";
 import MightLike from "../MightLike";
 import Context from "../../Context/Context";
+import { getCookie } from "cookies-next";
 
 const Product = ({ params }) => {
   const { id } = params;
   const [data, setData] = useState();
-  const { products } = useContext(Context);
+  const { products, addToWishlist, login, removeFromWishlist } =
+    useContext(Context);
   const [image, setImage] = useState();
 
   useEffect(() => {
@@ -71,12 +77,27 @@ const Product = ({ params }) => {
               </p>
             </div>
             <div className="flex items-center mt-2">
-              <AiOutlineHeart className="text-3xl ml-3 cursor-pointer" />
+              {login?.wishlist?.find((e) => e?._id == data?._id) ? (
+                <AiFillHeart
+                  onClick={(e) => {
+                    removeFromWishlist(data?._id);
+                  }}
+                  className="text-3xl ml-3 cursor-pointer"
+                />
+              ) : (
+                <AiOutlineHeart
+                  onClick={(e) => {
+                    addToWishlist(data?._id);
+                  }}
+                  className="text-3xl ml-3 cursor-pointer"
+                />
+              )}
+
               <CiShare2 className="text-3xl ml-3 cursor-pointer" />
             </div>
           </div>
           <p className="font-semibold mt-3 text-2xl">Product Details</p>
-          <p className="md:w-10/12">{data?.description}</p>
+          <p className="md:w-10/12 text-lg md:text-base">{data?.description}</p>
           <div className="flex md:flex-row flex-col items-center font-medium mt-5">
             <button className="border-2 border-brown md:mb-0 mb-3 justify-center md:mr-3 flex items-center md:w-fit w-full px-7 rounded-md text-xl text-brown py-1">
               <AiOutlineShoppingCart className="mr-2" />

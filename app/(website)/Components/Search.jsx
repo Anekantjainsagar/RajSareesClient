@@ -53,9 +53,10 @@ const Search = () => {
   } = useContext(Context);
 
   useEffect(() => {
-    setSearch("")
-  }, [])
-  
+    if (showSearchBar === true) {
+      setSearch("");
+    }
+  }, [showSearchBar]);
 
   return (
     <div className="z-50">

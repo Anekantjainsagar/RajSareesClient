@@ -7,8 +7,10 @@ import Featured from "./Components/Main/Featured";
 import Categories from "./Components/Main/Categories";
 import FOllowus from "./Components/Main/FollowUs";
 import Context from "./Context/Context";
+import { useRouter } from "next/navigation";
 
 const App = () => {
+  const history = useRouter();
   const { setCategoryFilter } = useContext(Context);
   useEffect(() => {
     setCategoryFilter("");
@@ -27,7 +29,12 @@ const App = () => {
             <span className="text-brown">Traditional</span> and
             <br /> Modern <span className="text-brown">Fashion</span>
           </p>
-          <button className="bg-brown text-xl text-white px-10 py-2 rounded-xl mt-5 shadow-md shadow-gray-400 font-semibold">
+          <button
+            onClick={(e) => {
+              history.push("/products");
+            }}
+            className="bg-brown text-xl text-white px-10 py-2 rounded-xl mt-5 shadow-md shadow-gray-400 font-semibold"
+          >
             Shop Now
           </button>
         </div>

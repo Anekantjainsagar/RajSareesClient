@@ -2,6 +2,7 @@
 import React, { useContext } from "react";
 import { salsa, sansation } from "@/app/Utils/font";
 import Context from "@/app/(website)/Context/Context";
+import { useRouter } from "next/navigation";
 
 const Footer = () => {
   const data = [
@@ -21,8 +22,8 @@ const Footer = () => {
       name: "My Account",
       routes: [
         { name: "Login" },
-        { name: "Shopping Bag" },
-        { name: "Wishlist" },
+        { name: "Shopping Bag", route: "/cart" },
+        { name: "Wishlist", route: "/wishlist" },
       ],
     },
   ];
@@ -59,6 +60,7 @@ const Footer = () => {
 };
 
 const Block = ({ data }) => {
+  const history = useRouter();
   const { setLoginModalOpen } = useContext(Context);
 
   return (
@@ -73,6 +75,9 @@ const Block = ({ data }) => {
             onClick={(el) => {
               if (e?.name == "Login") {
                 setLoginModalOpen(true);
+              }
+              if (e?.route) {
+                history.push(e?.route);
               }
             }}
             className={`text-grey cursor-pointer border-b border-b-transparent hover:border-b-grey transition-all mb-1 md:mb-2 w-fit ${sansation.className} text-lg`}

@@ -20,6 +20,7 @@ const Navbar = () => {
     categories,
     setSortStore,
     setCategoryFilter,
+    cart,
   } = useContext(Context);
 
   return (
@@ -44,18 +45,24 @@ const Navbar = () => {
               />
               <Search />
             </div>
-            <FaHeart
+            <div
               onClick={(e) => {
                 history.push("/wishlist");
               }}
-              className="ml-5 text-xl md:text-3xl cursor-pointer"
-            />
-            <FaShoppingCart
+            >
+              <FaHeart className="ml-5 text-xl md:text-3xl cursor-pointer" />
+            </div>
+            <div
               onClick={(e) => {
                 history.push("/cart");
               }}
-              className="ml-5 text-xl md:text-3xl cursor-pointer"
-            />
+              className="ml-5 cursor-pointer relative"
+            >
+              <p className="absolute z-30 bg-white px-1.5 text-sm -right-3 -top-3 border border-grey text-grey rounded-full">
+                {cart?.length}
+              </p>
+              <FaShoppingCart className="text-xl md:text-3xl cursor-pointer" />
+            </div>
             {login?._id ? (
               <Image
                 src={login?.image}
