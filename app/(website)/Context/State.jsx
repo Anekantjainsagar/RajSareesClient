@@ -140,7 +140,7 @@ const State = (props) => {
   }, [categoryFilter]);
 
   useEffect(() => {
-    if (!getCookie("token")) {
+    if (!getCookie("token") && !pathname.includes("admin")) {
       history.push("/");
       setShowLogin(false);
       setLoginModalOpen(true);

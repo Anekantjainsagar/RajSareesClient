@@ -49,8 +49,12 @@ const Navbar = () => {
               onClick={(e) => {
                 history.push("/wishlist");
               }}
+              className="ml-5 cursor-pointer relative"
             >
-              <FaHeart className="ml-5 text-xl md:text-3xl cursor-pointer" />
+              <FaHeart className="text-xl md:text-3xl cursor-pointer" />
+              <p className="absolute z-30 bg-white px-1.5 text-sm -right-3 -top-3 border border-grey text-grey rounded-full">
+                {login?.wishlist ? login?.wishlist?.length : 0}
+              </p>
             </div>
             <div
               onClick={(e) => {

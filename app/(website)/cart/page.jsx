@@ -4,9 +4,12 @@ import { sansation } from "@/app/Utils/font";
 import Image from "next/image";
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 import Context from "../Context/Context";
+import URL from "@/app/Utils";
+import { cashfreeProd } from "cashfree-pg-sdk-javascript";
+import axios from "axios";
 
 const Cart = () => {
-  const { cart } = useContext(Context);
+  const { cart, login } = useContext(Context);
   const [total, setTotal] = useState(0);
 
   useEffect(() => {
@@ -18,6 +21,25 @@ const Cart = () => {
       );
     }
   }, [cart]);
+
+  const checkout = () => {
+    axios
+      .post(`${URL}/order/place`, {
+        products: JSON.parse(localStorage.getItem("cart")),
+        amount: parseFloat((total * 18) / 100 + total).toFixed(1),
+        user_id: login?._id,
+      })
+      .then((res) => {
+        let cashfree = new cashfreeProd.Cashfree(res?.data?.payment_session_id);
+        cashfree.redirect();
+        const cfCheckout = cashfree.elements();
+        cfCheckout.elements({
+          type: "upi-collect",
+        });
+        cfCheckout.pay("upi-collect");
+      })
+      .catch((err) => {});
+  };
 
   return (
     <div
@@ -52,7 +74,10 @@ const Cart = () => {
           <p>Grand Total</p>
           <p>₹{parseFloat((total * 18) / 100 + total).toFixed(1)}</p>
         </div>
-        <button className="w-full text-center bg-brown text-white mt-2 py-1 font-semibold rounded-md mb-1">
+        <button
+          onClick={checkout}
+          className="w-full text-center bg-brown text-white mt-2 py-1.5 font-semibold rounded-md mb-1"
+        >
           Proceed to Checkout
         </button>
       </div>

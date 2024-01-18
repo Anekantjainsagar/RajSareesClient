@@ -4,21 +4,28 @@ import React, { useContext, useEffect, useState } from "react";
 import img from "@/app/Assets/product.png";
 import {
   AiFillHeart,
+  AiOutlineDelete,
   AiOutlineHeart,
   AiOutlineShoppingCart,
 } from "react-icons/ai";
 import { CiShare2 } from "react-icons/ci";
 import { FaAngleDoubleRight } from "react-icons/fa";
-import { salsa, sansation } from "@/app/Utils/font";
+import { sansation } from "@/app/Utils/font";
 import MightLike from "../MightLike";
 import Context from "../../Context/Context";
-import { getCookie } from "cookies-next";
 
 const Product = ({ params }) => {
   const { id } = params;
   const [data, setData] = useState();
-  const { products, addToWishlist, login, removeFromWishlist } =
-    useContext(Context);
+  const {
+    products,
+    addToWishlist,
+    login,
+    removeFromWishlist,
+    cart,
+    removeFromCart,
+    addToCart,
+  } = useContext(Context);
   const [image, setImage] = useState();
 
   useEffect(() => {
@@ -92,17 +99,33 @@ const Product = ({ params }) => {
                   className="text-3xl ml-3 cursor-pointer"
                 />
               )}
-
               <CiShare2 className="text-3xl ml-3 cursor-pointer" />
             </div>
           </div>
           <p className="font-semibold mt-3 text-2xl">Product Details</p>
           <p className="md:w-10/12 text-lg md:text-base">{data?.description}</p>
           <div className="flex md:flex-row flex-col items-center font-medium mt-5">
-            <button className="border-2 border-brown md:mb-0 mb-3 justify-center md:mr-3 flex items-center md:w-fit w-full px-7 rounded-md text-xl text-brown py-1">
-              <AiOutlineShoppingCart className="mr-2" />
-              Add to Cart
-            </button>
+            {cart?.find((e) => e?._id === data?._id) ? (
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  removeFromCart(data);
+                }}
+                className="border-2 bg-brown border-white md:mb-0 mb-3 justify-center md:mr-3 flex items-center md:w-fit w-full px-7 rounded-md text-xl text-white py-1"
+              >
+                <AiOutlineDelete className="mr-2 text-xl" /> Remove from Cart
+              </button>
+            ) : (
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  addToCart(data);
+                }}
+                className="border-2 border-brown md:mb-0 mb-3 justify-center md:mr-3 flex items-center md:w-fit w-full px-7 rounded-md text-xl text-brown py-1"
+              >
+                <AiOutlineShoppingCart className="mr-2 text-xl" /> Add to Cart
+              </button>
+            )}
             <button className="border-2 border-white bg-brown flex justify-center items-center md:w-fit w-full px-7 rounded-md text-xl text-white py-1">
               <FaAngleDoubleRight className="mr-2" />
               Buy Now
