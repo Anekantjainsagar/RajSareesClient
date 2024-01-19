@@ -22,7 +22,14 @@ const Products = () => {
     categoryFilter,
     setCategoryFilter,
     setSearch,
+    subCategories,
     search,
+    genderFilter,
+    setGenderFilter,
+    colorFilter,
+    setColorFilter,
+    fabricFilter,
+    setFabricFilter,
   } = useContext(Context);
   const openSidebar = () => {
     gsap.fromTo(
@@ -61,9 +68,9 @@ const Products = () => {
     >
       <div
         id="sidebar"
-        className="md:static fixed bg-white w-[75vw] md:h-fit right-[-75vw] h-[100vh] top-0 md:w-2/12 md:z-0 z-50"
+        className="md:static fixed bg-white w-[75vw] overflow-y-auto md:h-fit right-[-75vw] h-[100vh] top-0 md:w-2/12 md:z-0 z-50"
       >
-        <div className="border px-4 rounded-md py-3 overflow-y-auto md:py-2">
+        <div className="border px-4 rounded-md py-3 md:py-2">
           <div className="flex items-center justify-between">
             <p className="md:text-base text-lg">FILTERS</p>
             <AiOutlineClose
@@ -79,6 +86,28 @@ const Products = () => {
             value={categories}
             current={categoryFilter}
             setCurrent={setCategoryFilter}
+            id={true}
+          />
+          <Line />
+          <FilterBlock
+            name="Gender"
+            value={subCategories?.gender}
+            current={genderFilter}
+            setCurrent={setGenderFilter}
+          />
+          <Line />
+          <FilterBlock
+            name="Fabric"
+            value={subCategories?.fabric}
+            current={fabricFilter}
+            setCurrent={setFabricFilter}
+          />
+          <Line />
+          <FilterBlock
+            name="Color"
+            value={subCategories?.color}
+            current={colorFilter}
+            setCurrent={setColorFilter}
           />
           <Line />
           <PriceBlock
@@ -149,78 +178,91 @@ const Products = () => {
             />
           </div>
         </div>
+        {products?.filter((e) => {
+          if (search) {
+            return e?.name?.toLowerCase()?.includes(search?.toLowerCase());
+          } else {
+            return e;
+          }
+        })?.length > 0 ? (
+          <div className="grid md:grid-cols-4 gap-x-6 gap-y-6 px-2">
+            {products
+              ?.sort((a, b) => {
+                if (sortStore === "Price (High to Low)") {
+                  let fa = a.price,
+                    fb = b.price;
 
-        <div className="grid md:grid-cols-4 gap-x-6 gap-y-6 px-2">
-          {products
-            ?.sort((a, b) => {
-              if (sortStore === "Price (High to Low)") {
-                let fa = a.price,
-                  fb = b.price;
+                  if (fa < fb) {
+                    return 1;
+                  }
+                  if (fa > fb) {
+                    return -1;
+                  }
+                  return 0;
+                } else if (sortStore == "Price (Low to High)") {
+                  let fa = a.price,
+                    fb = b.price;
 
-                if (fa < fb) {
-                  return 1;
-                }
-                if (fa > fb) {
-                  return -1;
+                  if (fa < fb) {
+                    return -1;
+                  }
+                  if (fa > fb) {
+                    return 1;
+                  }
+                  return 0;
+                } else if (sortStore === "Descending") {
+                  let fa = a.name.toLowerCase(),
+                    fb = b.name.toLowerCase();
+
+                  if (fa < fb) {
+                    return 1;
+                  }
+                  if (fa > fb) {
+                    return -1;
+                  }
+                  return 0;
+                } else if (sortStore == "Ascending") {
+                  let fa = a.name.toLowerCase(),
+                    fb = b.name.toLowerCase();
+
+                  if (fa < fb) {
+                    return -1;
+                  }
+                  if (fa > fb) {
+                    return 1;
+                  }
+                  return 0;
+                } else if (sortStore === "Oldest") {
+                  let fa = new Date(a.date),
+                    fb = new Date(b.date);
+
+                  return fb - fa;
+                } else if (sortStore === "New Arrivals") {
+                  let fa = new Date(a.date),
+                    fb = new Date(b.date);
+
+                  return fa - fb;
                 }
                 return 0;
-              } else if (sortStore == "Price (Low to High)") {
-                let fa = a.price,
-                  fb = b.price;
-
-                if (fa < fb) {
-                  return -1;
+              })
+              ?.filter((e) => {
+                if (search) {
+                  return e?.name
+                    ?.toLowerCase()
+                    ?.includes(search?.toLowerCase());
+                } else {
+                  return e;
                 }
-                if (fa > fb) {
-                  return 1;
-                }
-                return 0;
-              } else if (sortStore === "Descending") {
-                let fa = a.name.toLowerCase(),
-                  fb = b.name.toLowerCase();
-
-                if (fa < fb) {
-                  return 1;
-                }
-                if (fa > fb) {
-                  return -1;
-                }
-                return 0;
-              } else if (sortStore == "Ascending") {
-                let fa = a.name.toLowerCase(),
-                  fb = b.name.toLowerCase();
-
-                if (fa < fb) {
-                  return -1;
-                }
-                if (fa > fb) {
-                  return 1;
-                }
-                return 0;
-              } else if (sortStore === "Oldest") {
-                let fa = new Date(a.date),
-                  fb = new Date(b.date);
-
-                return fb - fa;
-              } else if (sortStore === "New Arrivals") {
-                let fa = new Date(a.date),
-                  fb = new Date(b.date);
-
-                return fa - fb;
-              }
-              return 0;
-            })
-            ?.filter((e) => {
-              if (search) {
-                return e?.name?.toLowerCase()?.includes(search?.toLowerCase());
-              } else {
-                return e;
-              }
-            })
-            ?.map((e, i) => {
-              return <ProductBlock key={i} data={e} />;
-            })}
-        </div>
+              })
+              ?.map((e, i) => {
+                return <ProductBlock key={i} data={e} />;
+              })}
+          </div>
+        ) : (
+          <div className="text-2xl md:text-xl md:w-full w-[95vw] text-center text-grey">
+            <p>No Product Available</p>
+          </div>
+        )}
       </div>
     </div>
   );
@@ -230,7 +272,7 @@ const Line = () => {
   return <div className="h-[1px] w-full bg-gray-100 my-2"></div>;
 };
 
-const FilterBlock = ({ name, value, current, setCurrent }) => {
+const FilterBlock = ({ name, value, current, setCurrent, id }) => {
   const [showFilter, setShowFilter] = useState(true);
 
   return (
@@ -255,11 +297,12 @@ const FilterBlock = ({ name, value, current, setCurrent }) => {
                   data={e}
                   current={current}
                   setCurrent={setCurrent}
+                  id={id}
                 />
               );
             })}
           </div>
-          {current && (
+          {current?.length > 0 && (
             <div
               onClick={(e) => {
                 setCurrent("");
@@ -314,26 +357,43 @@ const PriceBlock = ({ name, handleRanges, firstValue, secondValue }) => {
   );
 };
 
-const CheckboxBlock = ({ data, current, setCurrent }) => {
+const CheckboxBlock = ({ data, current, setCurrent, id }) => {
   return (
-    <div
-      onClick={(e) => {
-        let temp = current;
-        setCurrent(data?._id);
-      }}
-      className="flex items-center my-1.5 md:my-1"
-    >
+    <div className="flex items-center my-1.5 md:my-1">
       <input
         type="checkbox"
-        id={data?.title}
-        checked={current?.includes(data?._id)}
+        id={id ? data?.title : data}
+        checked={
+          id
+            ? current?.includes(data?._id)
+            : current?.includes(data.toLowerCase())
+        }
+        onChange={(e) => {
+          if (id) {
+            if (current?.includes(data?._id)) {
+              let temp = current;
+              temp = temp.filter((e) => e != data?._id);
+              setCurrent(temp);
+            } else {
+              setCurrent([...current, data?._id]);
+            }
+          } else {
+            if (current?.includes(data.toLowerCase())) {
+              let temp = current;
+              temp = temp.filter((e) => e != data?.toLowerCase());
+              setCurrent(temp);
+            } else {
+              setCurrent([...current, data?.toLowerCase()]);
+            }
+          }
+        }}
         className="h-5 md:h-4 w-5 md:w-4 rounded-md border-none bg-brown"
       />
       <label
-        htmlFor={data?.title}
+        htmlFor={id ? data?.title : data}
         className="cursor-pointer md:text-base text-lg ml-2 text-gray-600"
       >
-        {data?.title}
+        {id ? data?.title : data}
       </label>
     </div>
   );

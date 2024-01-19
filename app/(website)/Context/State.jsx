@@ -25,7 +25,11 @@ const State = (props) => {
   const [cart, setCart] = useState([]);
 
   const [sortStore, setSortStore] = useState("Relevance");
-  const [categoryFilter, setCategoryFilter] = useState("");
+  const [categoryFilter, setCategoryFilter] = useState([]);
+  const [genderFilter, setGenderFilter] = useState([]);
+  const [fabricFilter, setFabricFilter] = useState([]);
+  const [colorFilter, setColorFilter] = useState([]);
+  const [subCategories, setSubCategories] = useState();
 
   // Login Things
   const getUser = () => {
@@ -104,7 +108,13 @@ const State = (props) => {
       localStorage.setItem("cart", JSON.stringify(data));
     }
   };
+  const getSubCategories = () => {
+    axios.get(`${URL}/category/get-sub-category`).then((res) => {
+      setSubCategories(res.data);
+    });
+  };
   useEffect(() => {
+    getSubCategories();
     updateRecentSearch();
     const data = JSON.parse(localStorage.getItem("cart"));
     setCart(data);
@@ -123,7 +133,9 @@ const State = (props) => {
   };
   const getProducts = () => {
     axios
-      .get(`${URL}/product/get-all?categoryIds=${categoryFilter}`)
+      .get(
+        `${URL}/product/get-all?categoryIds=${categoryFilter}&fabric=${fabricFilter}&gender=${genderFilter}&color=${colorFilter}`
+      )
       .then((res) => {
         setProducts(res.data);
       })
@@ -137,7 +149,7 @@ const State = (props) => {
   }, []);
   useEffect(() => {
     getProducts();
-  }, [categoryFilter]);
+  }, [categoryFilter, genderFilter, colorFilter, fabricFilter]);
 
   useEffect(() => {
     if (!getCookie("token") && !pathname.includes("admin")) {
@@ -163,6 +175,7 @@ const State = (props) => {
         getUser,
         showLogin,
         setShowLogin,
+        subCategories,
 
         // Main Things
         search,
@@ -180,6 +193,12 @@ const State = (props) => {
         addToCart,
         removeFromCart,
         cart,
+        genderFilter,
+        setGenderFilter,
+        colorFilter,
+        setColorFilter,
+        fabricFilter,
+        setFabricFilter,
 
         // Admin things
         categories,

@@ -5,7 +5,7 @@ import Image from "next/image";
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 import Context from "../Context/Context";
 import URL from "@/app/Utils";
-import { cashfreeProd } from "cashfree-pg-sdk-javascript";
+// import { cashfreeSandbox } from "cashfree-pg-sdk-javascript";
 import axios from "axios";
 
 const Cart = () => {
@@ -23,22 +23,26 @@ const Cart = () => {
   }, [cart]);
 
   const checkout = () => {
-    axios
-      .post(`${URL}/order/place`, {
-        products: JSON.parse(localStorage.getItem("cart")),
-        amount: parseFloat((total * 18) / 100 + total).toFixed(1),
-        user_id: login?._id,
-      })
-      .then((res) => {
-        let cashfree = new cashfreeProd.Cashfree(res?.data?.payment_session_id);
-        cashfree.redirect();
-        const cfCheckout = cashfree.elements();
-        cfCheckout.elements({
-          type: "upi-collect",
-        });
-        cfCheckout.pay("upi-collect");
-      })
-      .catch((err) => {});
+    if (typeof document != undefined) {
+      axios
+        .post(`${URL}/order/place`, {
+          products: JSON.parse(localStorage.getItem("cart")),
+          amount: parseFloat((total * 18) / 100 + total).toFixed(1),
+          user_id: login?._id,
+        })
+        .then((res) => {
+          // let cashfree = new cashfreeSandbox.Cashfree(
+          //   res?.data?.payment_session_id
+          // );
+          // cashfree.redirect();
+          // const cfCheckout = cashfree.elements();
+          // cfCheckout.elements({
+          //   type: "upi-collect",
+          // });
+          // cfCheckout.pay("upi-collect");
+        })
+        .catch((err) => {});
+    }
   };
 
   return (

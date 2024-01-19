@@ -19,6 +19,9 @@ const AddProduct = ({ params }) => {
     quantity: "",
     description: "",
     category_id: "",
+    gender: "",
+    fabric: "",
+    color: "",
   });
   const [image1, setImage1] = useState("");
   const [image2, setImage2] = useState("");
@@ -57,6 +60,11 @@ const AddProduct = ({ params }) => {
       quantity: product?.quantity,
       description: product?.description,
       category_id: product?.category_id?._id,
+      gender:
+        product?.gender?.charAt(0).toUpperCase() + product?.gender?.slice(1),
+      fabric:
+        product?.fabric?.charAt(0).toUpperCase() + product?.fabric?.slice(1),
+      color: product?.color?.charAt(0).toUpperCase() + product?.color?.slice(1),
     });
     setImage1(product?.images[0]);
     setImage2(product?.images[1]);
@@ -150,6 +158,35 @@ const AddProduct = ({ params }) => {
                 </span>
               </p>
             </div>
+          </div>
+          <div className="mb-4 grid grid-cols-3 items-center gap-x-4">
+            <input
+              type="text"
+              value={product?.gender}
+              onChange={(e) => {
+                setProduct({ ...product, gender: e.target.value });
+              }}
+              className="px-3 border w-full outline-none py-1 rounded-md"
+              placeholder="Enter the Gender"
+            />{" "}
+            <input
+              type="text"
+              value={product?.fabric}
+              onChange={(e) => {
+                setProduct({ ...product, fabric: e.target.value });
+              }}
+              className="px-3 border w-full outline-none py-1 rounded-md"
+              placeholder="Enter the Fabric"
+            />
+            <input
+              type="text"
+              value={product?.color}
+              className="px-3 border w-full outline-none py-1 rounded-md"
+              placeholder="Enter the Color"
+              onChange={(e) => {
+                setProduct({ ...product, color: e.target.value });
+              }}
+            />
           </div>
           <textarea
             rows="5"
