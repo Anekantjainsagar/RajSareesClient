@@ -39,9 +39,10 @@ const OrderBlock = ({ data, admin }) => {
       <div className="px-0.5 md:px-3">
         {hidden && (
           <>
-            {data?.products?.map((e) => {
+            {data?.products?.map((e, i) => {
               return (
                 <Link
+                  key={i}
                   href={`https://rajsareesenterprises.com/products/${e?.name
                     ?.replaceAll(" ", "-")
                     ?.toLowerCase()}`}

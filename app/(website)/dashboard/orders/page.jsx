@@ -25,7 +25,7 @@ const Orders = () => {
         })}
         {myOrders?.length == 0 ? (
           <div className="text-xl flex flex-col text-center items-center pt-5">
-            You've no Orders
+            You&apos;ve no Orders
             <button
               onClick={(e) => {
                 history.push("/products");
