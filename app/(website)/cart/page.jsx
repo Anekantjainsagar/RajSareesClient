@@ -5,7 +5,7 @@ import Image from "next/image";
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 import Context from "../Context/Context";
 import URL from "@/app/Utils";
-import { cashfreeSandbox } from "cashfree-pg-sdk-javascript";
+// import { cashfreeSandbox } from "cashfree-pg-sdk-javascript";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 import { useRouter } from "next/navigation";
@@ -41,7 +41,6 @@ const Cart = () => {
         .then((res) => {
           // let cashfree = new cashfreeSandbox.Cashfree(
           //   res.data?.payment_session_id
-          //   // "session_FK1QzlogVldka_0NpCLP8zd1bbM6gPHcNRWd1KNUuVuRPg_H3qg-mC9DsoCNw1d67K-zjVkW0M84V7L7nO8_gbAOgUG-BcEkwqiP954HY0wO"
           // );
           // cashfree.redirect();
           // const cfCheckout = cashfree.elements();
