@@ -89,14 +89,14 @@ const Product = ({ params }) => {
                   onClick={(e) => {
                     removeFromWishlist(data?._id);
                   }}
-                  className="text-3xl ml-3 cursor-pointer"
+                  className="text-3xl text-brown ml-3 cursor-pointer"
                 />
               ) : (
                 <AiOutlineHeart
                   onClick={(e) => {
                     addToWishlist(data?._id);
                   }}
-                  className="text-3xl ml-3 cursor-pointer"
+                  className="text-3xl ml-3 text-brown cursor-pointer"
                 />
               )}
               <CiShare2 className="text-3xl ml-3 cursor-pointer" />

@@ -39,18 +39,16 @@ const Cart = () => {
           user_id: login?._id,
         })
         .then((res) => {
-          // console.log(res.data?.payment_session_id);
-          let cashfree = new cashfreeSandbox.Cashfree(
-            res.data?.payment_session_id
-            // "session_FK1QzlogVldka_0NpCLP8zd1bbM6gPHcNRWd1KNUuVuRPg_H3qg-mC9DsoCNw1d67K-zjVkW0M84V7L7nO8_gbAOgUG-BcEkwqiP954HY0wO"
-          );
-          console.log(cashfree);
-          cashfree.redirect();
-          const cfCheckout = cashfree.elements();
-          cfCheckout.elements({
-            type: "upi-collect",
-          });
-          cfCheckout.pay("upi-collect");
+          // let cashfree = new cashfreeSandbox.Cashfree(
+          //   res.data?.payment_session_id
+          //   // "session_FK1QzlogVldka_0NpCLP8zd1bbM6gPHcNRWd1KNUuVuRPg_H3qg-mC9DsoCNw1d67K-zjVkW0M84V7L7nO8_gbAOgUG-BcEkwqiP954HY0wO"
+          // );
+          // cashfree.redirect();
+          // const cfCheckout = cashfree.elements();
+          // cfCheckout.elements({
+          //   type: "upi-collect",
+          // });
+          // cfCheckout.pay("upi-collect");
         })
         .catch((err) => {});
     } else {
@@ -108,8 +106,21 @@ const Cart = () => {
 
 const Product = ({ data }) => {
   const [quantity, setQuantity] = useState(1);
-  const { addToWishlist, login, removeFromWishlist, removeFromCart } =
+  const { addToWishlist, login, removeFromWishlist, removeFromCart, setCart } =
     useContext(Context);
+
+  useEffect(() => {
+    setQuantity(data?.quantity);
+  }, [data]);
+
+  const updateQuantity = (num) => {
+    let allData = JSON.parse(localStorage.getItem("cart"));
+    let temp = allData?.find((e) => e?._id == data?._id);
+    temp.quantity = num;
+    allData = allData?.filter((e) => e?._id != data?._id);
+    localStorage.setItem("cart", JSON.stringify([...allData, temp]));
+    setCart([...allData, temp]);
+  };
 
   return (
     <div className="border mb-3 flex mr-3 items-stretch shadow-md shadow-gray-100 rounded-md px-2 md:px-3 py-2 md:py-3">
@@ -124,7 +135,9 @@ const Product = ({ data }) => {
         <div>
           <div className="flex items-center w-full justify-between">
             <p className="text-lg md:text-[22px]">{data?.name}</p>
-            <p className="md:text-xl font-medium">MRP ₹{data?.price}</p>
+            <p className="md:text-xl font-medium">
+              MRP ₹{data?.price * quantity}
+            </p>
           </div>
           <p className="text-gray-500 md:text-base text-xs ml-1">
             {data?.description?.slice(0, 80) +
@@ -137,6 +150,7 @@ const Product = ({ data }) => {
                   setQuantity(1);
                 } else {
                   setQuantity(quantity - 1);
+                  updateQuantity(quantity - 1);
                 }
               }}
               className="text-2xl cursor-pointer bg-gray-200 rounded-full p-1.5"
@@ -145,6 +159,7 @@ const Product = ({ data }) => {
             <AiOutlinePlus
               onClick={(e) => {
                 setQuantity(quantity + 1);
+                updateQuantity(quantity + 1);
               }}
               className="text-2xl cursor-pointer bg-gray-200 rounded-full p-1.5"
             />

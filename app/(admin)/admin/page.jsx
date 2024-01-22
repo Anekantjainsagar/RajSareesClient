@@ -21,6 +21,7 @@ import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import CategoryBlock from "@/app/(website)/Components/Main/CategoryBlock";
 import { sansation } from "@/app/Utils/font";
+import Admin from "../Components/Graphs";
 
 const AdminPage = () => {
   const { products, categories } = useContext(Context);
@@ -33,7 +34,10 @@ const AdminPage = () => {
   }, []);
 
   return (
-    <div className={`${sansation.className} h-[88vh] overflow-y-auto bg-gray-100 p-4`}>
+    <div
+      className={`${sansation.className} h-[88vh] overflow-y-auto bg-gray-100 p-4`}
+    >
+      <Admin />
       <div className="bg-white border mb-4 rounded-md pt-4 shadow-md shadow-gray-200">
         <p className="text-black font-bold px-4 border-b pb-2">
           All Products ({products?.length})
@@ -99,7 +103,7 @@ const Product = ({ data }) => {
         className="w-full h-[34vh] rounded-md object-cover object-center"
       />
       <div className="py-1">
-        <p className="text-black font-bold">{data?.name?.slice(0,20)}</p>
+        <p className="text-black font-bold">{data?.name?.slice(0, 20)}</p>
         <div className="flex items-center">
           <p className="mt-0 text-newBlue text-xs font-semibold">
             INR {data?.price}
