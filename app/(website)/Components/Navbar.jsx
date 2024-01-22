@@ -1,5 +1,5 @@
 "use client";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import logo from "@/app/Assets/logo.png";
 import Image from "next/image";
 import { CiSearch } from "react-icons/ci";
@@ -8,9 +8,11 @@ import Context from "../Context/Context";
 import { useRouter } from "next/navigation";
 import Search from "./Search";
 import { sansation } from "@/app/Utils/font";
+import { deleteCookie } from "cookies-next";
 
 const Navbar = () => {
   const history = useRouter();
+  const [showOptions, setShowOptions] = useState(false);
   const {
     loginModalOpen,
     setLoginModalOpen,
@@ -21,6 +23,7 @@ const Navbar = () => {
     setSortStore,
     setCategoryFilter,
     cart,
+    getUser,
   } = useContext(Context);
 
   return (
@@ -68,20 +71,59 @@ const Navbar = () => {
               <FaShoppingCart className="text-xl md:text-3xl cursor-pointer" />
             </div>
             {login?._id ? (
-              <Image
-                src={login?.image}
-                onClick={(e) => {
-                  if (!login?._id) {
-                    setLoginModalOpen(!loginModalOpen);
-                  } else {
-                    history.push("/dashboard");
-                  }
-                }}
-                width={100}
-                height={100}
-                className="md:w-[2.6vw] w-[5.5vw] border border-brown md:h-[2.6vw] h-[5.5vw] ml-5 rounded-full object-cover object-center cursor-pointer"
-                alt="User Profile"
-              />
+              <div className="relative ml-5">
+                <Image
+                  src={login?.image}
+                  onClick={(e) => {
+                    setShowOptions(!showOptions);
+                  }}
+                  width={100}
+                  height={100}
+                  className="md:w-[2.6vw] w-[6vw] border border-brown md:h-[2.6vw] h-[6vw] rounded-full object-cover object-center cursor-pointer"
+                  alt="User Profile"
+                />
+                {showOptions && (
+                  <div className="absolute flex flex-col items-center w-[30vw] md:w-[8vw] border left-1/2 -translate-x-[90%] top-9 md:text-base text-sm md:top-12 rounded-lg bg-white">
+                    <p
+                      onClick={(e) => {
+                        setShowOptions(false)
+                        if (!login?._id) {
+                          setLoginModalOpen(!loginModalOpen);
+                        } else {
+                          history.push("/dashboard");
+                        }
+                      }}
+                      className="text-center py-1 cursor-pointer hover:bg-gray-100 w-full rounded-lg transition-all"
+                    >
+                      My Profile
+                    </p>
+                    <p
+                      onClick={(e) => {
+                        setShowOptions(false);
+                        if (!login?._id) {
+                          setLoginModalOpen(!loginModalOpen);
+                        } else {
+                          history.push("/dashboard/orders");
+                        }
+                      }}
+                      className="text-center py-1 cursor-pointer hover:bg-gray-100 w-full rounded-lg transition-all"
+                    >
+                      My Orders
+                    </p>
+                    <p
+                      onClick={(e) => {
+                        setShowOptions(false);
+                        deleteCookie("token");
+                        history.push("/");
+                        getUser()
+                      }}
+                      className="text-center py-1 cursor-pointer hover:bg-gray-100 w-full rounded-lg transition-all"
+                    >
+                      Logout
+                    </p>
+                  </div>
+                )}
+              </div>
             ) : (
               <FaUser
                 onClick={(e) => {

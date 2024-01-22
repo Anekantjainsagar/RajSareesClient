@@ -23,6 +23,8 @@ const State = (props) => {
   const [categories, setCategories] = useState([]);
   const [products, setProducts] = useState([]);
   const [cart, setCart] = useState([]);
+  const [myOrders, setMyOrders] = useState([]);
+  const [allOrders, setAllOrders] = useState([]);
 
   const [sortStore, setSortStore] = useState("Relevance");
   const [categoryFilter, setCategoryFilter] = useState([]);
@@ -113,9 +115,22 @@ const State = (props) => {
       setSubCategories(res.data);
     });
   };
+  const getMyOrders = () => {
+    if (getCookie("token")) {
+      axios
+        .post(`${URL}/user/get-orders`, { token: getCookie("token") })
+        .then((res) => {
+          setMyOrders(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  };
   useEffect(() => {
     getSubCategories();
     updateRecentSearch();
+    getMyOrders();
     const data = JSON.parse(localStorage.getItem("cart"));
     setCart(data);
   }, []);
@@ -143,8 +158,15 @@ const State = (props) => {
         console.log(err);
       });
   };
+  const getAllOrders = () => {
+    axios.get(`${URL}/admin/get-all-orders`).then((res) => {
+      console.log(res.data);
+      setAllOrders(res.data);
+    });
+  };
 
   useEffect(() => {
+    getAllOrders();
     getCategories();
   }, []);
   useEffect(() => {
@@ -199,12 +221,17 @@ const State = (props) => {
         setColorFilter,
         fabricFilter,
         setFabricFilter,
+        setCart,
+        myOrders,
+        getMyOrders,
 
         // Admin things
         categories,
         getCategories,
         getProducts,
         products,
+        allOrders,
+        getAllOrders,
       }}
     >
       {props.children}

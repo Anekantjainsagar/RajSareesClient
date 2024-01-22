@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import axios from "axios";
 import { useState } from "react";
 import { BsCurrencyRupee } from "react-icons/bs";
@@ -7,10 +7,12 @@ import { Player } from "@lottiefiles/react-lottie-player";
 import toast, { Toaster } from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import URL from "@/app/Utils";
+import Context from "../../Context/Context";
 
 const PayCheck = ({ params }) => {
   const history = useRouter();
-  const { id } = { params };
+  const { setCart } = useContext(Context);
+  const { id } = params;
   const [orderDetails, setOrderDetails] = useState();
 
   useEffect(() => {
@@ -18,6 +20,7 @@ const PayCheck = ({ params }) => {
     axios
       .get(`${URL}/order/get/${id}`)
       .then((res) => {
+        console.log(res.data);
         if (res?.data?._id) {
           setOrderDetails(res.data);
           axios
@@ -28,6 +31,7 @@ const PayCheck = ({ params }) => {
             .then((res) => {
               if (res.status === 200) {
                 localStorage.setItem("cart", JSON.stringify([]));
+                setCart([]);
                 history.push("/pay/success");
               } else if (res.status === 203) {
                 history.push("/pay/failure");

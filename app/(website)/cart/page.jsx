@@ -5,12 +5,15 @@ import Image from "next/image";
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 import Context from "../Context/Context";
 import URL from "@/app/Utils";
-// import { cashfreeSandbox } from "cashfree-pg-sdk-javascript";
+import { cashfreeSandbox } from "cashfree-pg-sdk-javascript";
 import axios from "axios";
+import toast, { Toaster } from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 const Cart = () => {
   const { cart, login } = useContext(Context);
   const [total, setTotal] = useState(0);
+  const history = useRouter();
 
   useEffect(() => {
     if (cart?.length > 0) {
@@ -23,7 +26,12 @@ const Cart = () => {
   }, [cart]);
 
   const checkout = () => {
-    if (typeof document != undefined) {
+    if (
+      typeof document != undefined &&
+      login?.city &&
+      login?.state &&
+      login?.address
+    ) {
       axios
         .post(`${URL}/order/place`, {
           products: JSON.parse(localStorage.getItem("cart")),
@@ -31,17 +39,25 @@ const Cart = () => {
           user_id: login?._id,
         })
         .then((res) => {
-          // let cashfree = new cashfreeSandbox.Cashfree(
-          //   res?.data?.payment_session_id
-          // );
-          // cashfree.redirect();
-          // const cfCheckout = cashfree.elements();
-          // cfCheckout.elements({
-          //   type: "upi-collect",
-          // });
-          // cfCheckout.pay("upi-collect");
+          // console.log(res.data?.payment_session_id);
+          let cashfree = new cashfreeSandbox.Cashfree(
+            res.data?.payment_session_id
+            // "session_FK1QzlogVldka_0NpCLP8zd1bbM6gPHcNRWd1KNUuVuRPg_H3qg-mC9DsoCNw1d67K-zjVkW0M84V7L7nO8_gbAOgUG-BcEkwqiP954HY0wO"
+          );
+          console.log(cashfree);
+          cashfree.redirect();
+          const cfCheckout = cashfree.elements();
+          cfCheckout.elements({
+            type: "upi-collect",
+          });
+          cfCheckout.pay("upi-collect");
         })
         .catch((err) => {});
+    } else {
+      toast.error("Please add address before proceeding to payment");
+      setTimeout(() => {
+        history.push("/dashboard");
+      }, 1000);
     }
   };
 
@@ -49,6 +65,7 @@ const Cart = () => {
     <div
       className={`py-10 px-[4vw] flex md:flex-row flex-col text-grey items-start ${sansation.className}`}
     >
+      <Toaster />
       <div className="md:w-9/12 md:mr-2.5 h-[50vh] md:h-[72vh] overflow-y-auto">
         {cart?.map((e, i) => {
           return <Product key={i} data={e} />;
