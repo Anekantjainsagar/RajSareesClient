@@ -13,6 +13,7 @@ import { FaAngleDoubleRight } from "react-icons/fa";
 import { sansation } from "@/app/Utils/font";
 import MightLike from "../MightLike";
 import Context from "../../Context/Context";
+import { useRouter } from "next/navigation";
 
 const Product = ({ params }) => {
   const { id } = params;
@@ -27,6 +28,7 @@ const Product = ({ params }) => {
     addToCart,
   } = useContext(Context);
   const [image, setImage] = useState();
+  const history = useRouter();
 
   useEffect(() => {
     let temp = products?.find((e) => {
@@ -104,6 +106,14 @@ const Product = ({ params }) => {
           </div>
           <p className="font-semibold mt-3 text-2xl">Product Details</p>
           <p className="md:w-10/12 text-lg md:text-base">{data?.description}</p>
+          <p className="">
+            <span className="font-semibold">Color:- </span>
+            {data?.color[0].toUpperCase() + data?.color.slice(1)}
+          </p>
+          <p className="">
+            <span className="font-semibold">Fabric:- </span>
+            {data?.fabric[0].toUpperCase() + data?.fabric.slice(1)}
+          </p>
           <div className="flex md:flex-row flex-col items-center font-medium mt-5">
             {cart?.find((e) => e?._id === data?._id) ? (
               <button
@@ -126,7 +136,18 @@ const Product = ({ params }) => {
                 <AiOutlineShoppingCart className="mr-2 text-xl" /> Add to Cart
               </button>
             )}
-            <button className="border-2 border-white bg-brown flex justify-center items-center md:w-fit w-full px-7 rounded-md text-xl text-white py-1">
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                if (cart?.find((e) => e?._id === data?._id)) {
+                  removeFromCart(data);
+                } else {
+                  addToCart(data);
+                }
+                history.push("/cart");
+              }}
+              className="border-2 border-white bg-brown flex justify-center items-center md:w-fit w-full px-7 rounded-md text-xl text-white py-1"
+            >
               <FaAngleDoubleRight className="mr-2" />
               Buy Now
             </button>
