@@ -39,6 +39,7 @@ const Cart = () => {
           user_id: login?._id,
         })
         .then((res) => {
+          console.log(res.data?.payment_session_id);
           let cashfree = new cashfreeProd.Cashfree(
             res.data?.payment_session_id
           );
