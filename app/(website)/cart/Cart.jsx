@@ -41,7 +41,7 @@ const Cart = () => {
         .then((res) => {
           console.log(res.data?.payment_session_id);
           let cashfree = new cashfreeProd.Cashfree(
-            res.data?.payment_session_id
+            res?.data?.payment_session_id
           );
           cashfree.redirect();
           const cfCheckout = cashfree.elements();
