@@ -5,7 +5,7 @@ import Image from "next/image";
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 import Context from "../Context/Context";
 import URL from "@/app/Utils";
-import { cashfreeSandbox } from "cashfree-pg-sdk-javascript";
+import { cashfreeProd } from "cashfree-pg-sdk-javascript";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 import { useRouter } from "next/navigation";
@@ -39,7 +39,7 @@ const Cart = () => {
           user_id: login?._id,
         })
         .then((res) => {
-          let cashfree = new cashfreeSandbox.Cashfree(
+          let cashfree = new cashfreeProd.Cashfree(
             res.data?.payment_session_id
           );
           cashfree.redirect();
