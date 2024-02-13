@@ -39,16 +39,18 @@ const Cart = () => {
           user_id: login?._id,
         })
         .then((res) => {
-          console.log(res.data?.payment_session_id);
-          let cashfree = new cashfreeProd.Cashfree(
-            res?.data?.payment_session_id
-          );
-          cashfree.redirect();
-          const cfCheckout = cashfree.elements();
-          cfCheckout.elements({
-            type: "upi-collect",
-          });
-          cfCheckout.pay("upi-collect");
+          alert(res.data?.payment_session_id);
+          if (res.data?.payment_session_id) {
+            let cashfree = new cashfreeProd.Cashfree(
+              res?.data?.payment_session_id
+            );
+            cashfree.redirect();
+            const cfCheckout = cashfree.elements();
+            cfCheckout.elements({
+              type: "upi-collect",
+            });
+            cfCheckout.pay("upi-collect");
+          }
         })
         .catch((err) => {});
     } else {
