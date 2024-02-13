@@ -41,9 +41,9 @@ const Footer = () => {
           <p
             className={`text-grey ${sansation.className} md:text-start text-center text-lg`}
           >
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam,
+            Discover elegance at Raj Sarees Enterprise. Explore a wide variety
+            of high-quality sarees for every occasion. Elevate your
+            style effortlessly
           </p>
         </div>
         {data?.map((e, i) => {
@@ -52,10 +52,10 @@ const Footer = () => {
       </div>
       <div className="h-[1px] bg-[#B0A4A4] my-3 md:my-5 opacity-60"></div>
       <div
-        className={`flex items-center justify-between text-grey ${sansation.className} md:text-lg`}
+        className={`flex items-start justify-between text-grey ${sansation.className} md:text-lg`}
       >
-        <p>Lorem ipsum dolor sit amet.</p>
-        <p>Lorem, ipsum dolor.</p>
+        <p>Gandhinagar, Neyveli, Tamil Nadu, PIN: 607801</p>
+        <p>copyright 2024 @rajsareesenterprises all right reserved</p>
       </div>
     </div>
   );
