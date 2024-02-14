@@ -33,7 +33,7 @@ const Navbar = () => {
           <Image
             alt="Logo"
             src={logo}
-            className="w-[13vw] md:w-[5vw] cursor-pointer"
+            className="w-[13vw] md:w-[5.5vw] cursor-pointer"
             onClick={(e) => {
               history.push("/");
             }}
@@ -86,7 +86,7 @@ const Navbar = () => {
                   <div className="absolute flex flex-col items-center w-[30vw] md:w-[8vw] border left-1/2 -translate-x-[90%] top-9 md:text-base text-sm md:top-12 rounded-lg bg-white">
                     <p
                       onClick={(e) => {
-                        setShowOptions(false)
+                        setShowOptions(false);
                         if (!login?._id) {
                           setLoginModalOpen(!loginModalOpen);
                         } else {
@@ -115,7 +115,7 @@ const Navbar = () => {
                         setShowOptions(false);
                         deleteCookie("token");
                         history.push("/");
-                        getUser()
+                        getUser();
                       }}
                       className="text-center py-1 cursor-pointer hover:bg-gray-100 w-full rounded-lg transition-all"
                     >
@@ -148,7 +148,7 @@ const Navbar = () => {
               setCategoryFilter("");
               history.push("/products");
             }}
-            className="text-center md:text-lg hover:border-b border-b-grey text-sm cursor-pointer"
+            className="text-center md:text-lg font-semibold hover:border-b border-b-grey text-sm cursor-pointer"
           >
             New Arrivals
           </p>
@@ -160,7 +160,7 @@ const Navbar = () => {
                   setCategoryFilter(e?._id);
                   history.push("/products");
                 }}
-                className="text-center md:text-lg hover:border-b border-b-grey text-sm cursor-pointer"
+                className="text-center md:text-lg font-semibold hover:border-b border-b-grey text-sm cursor-pointer"
               >
                 {e?.title}
               </p>

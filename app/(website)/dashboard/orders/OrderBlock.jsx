@@ -90,8 +90,9 @@ const OrderBlock = ({ data, admin }) => {
             <div className="flex justify-end">
               <p className="text-end mt-1.5 md:text-base text-xs w-full md:w-4/12">
                 <span className="text-brown font-medium">Address: </span>
-                {data?.phone}, {data?.user_id?.address}, {data?.user_id?.city},{" "}
-                {data?.user_id?.state}, India {data?.user_id?.pincode}
+                {data?.user_id?.phone}, {data?.user_id?.address},{" "}
+                {data?.user_id?.city}, {data?.user_id?.state}, India{" "}
+                {data?.user_id?.pincode}
               </p>
             </div>
           </>
