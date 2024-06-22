@@ -1,6 +1,6 @@
 "use client";
 import React, { useContext, useState } from "react";
-import logo from "@/app/Assets/logo.png";
+import logo from "@/app/Assets/new-logo.png";
 import Image from "next/image";
 import { CiSearch } from "react-icons/ci";
 import { FaHeart, FaShoppingCart, FaUser } from "react-icons/fa";
